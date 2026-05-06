@@ -1,0 +1,28 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "charliermarsh.ruff",
+    "ms-python.vscode-pylance",
+    "ms-python.debugpy",
+    "usernamehw.errorlens",
+    "eamodio.gitlens",
+    "ms-ceintl.vscode-language-pack-ja",
+    "postman.postman-for-vscode"
+  ],
+  "unwantedRecommendations": [
+    "ms-dotnettools.vscode-dotnet-runtime",
+    "ms-dotnettools.csharp",
+    "ms-dotnettools.csdevkit",
+    "vscjava.vscode-java-pack",
+    "vscjava.vscode-gradle",
+    "redhat.java",
+    "vscjava.vscode-java-debug",
+    "vscjava.vscode-java-test",
+    "vscjava.vscode-maven",
+    "vscjava.vscode-java-dependency",
+    "vmware.vscode-spring-boot-dashboard",
+    "vmware.vscode-boot-dev-pack",
+    "vmware.vscode-spring-boot",
+    "vscjava.vscode-spring-initializr"
+  ]
+}

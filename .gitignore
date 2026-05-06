@@ -6,6 +6,7 @@ venv/
 
 .env
 
-.vscode/
+.vscode/*
+!.vscode/extensions.json
 .idea/
-
+docs-local/
