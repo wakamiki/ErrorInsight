@@ -10,3 +10,4 @@ venv/
 !.vscode/extensions.json
 .idea/
 docs-local/
+docs/docs-local/

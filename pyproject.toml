@@ -1,0 +1,16 @@
+[project]
+name = "errorinsight"
+version = "0.1.0"
+description = "CLI tool to extract suspicious error lines from clipboard logs."
+requires-python = ">=3.11"
+dependencies = [
+    "pyperclip",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
+[project.scripts]
+errorinsight = "errorinsight.cli:main"
