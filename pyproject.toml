@@ -13,4 +13,5 @@ dev = [
 ]
 
 [project.scripts]
+ei = "errorinsight.cli:main"
 errorinsight = "errorinsight.cli:main"

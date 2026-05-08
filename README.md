@@ -21,6 +21,8 @@ ErrorInsight は、クリップボードから取得した複数行ログから�
 
 ## 無料版スコープ
 
+この Public repository では、`01.00.00` の無料版完成を目標とします。
+
 ### できること
 
 - クリップボードから複数行ログを取得する
@@ -48,6 +50,22 @@ ErrorInsight は、クリップボードから取得した複数行ログから�
 有料版では、抽出したエラー行に対する原因候補表示や、より詳しい調査支援機能を提供する予定です。
 
 有料版の具体的な仕様、分析ロジック、課金処理、ライセンス認証は Private repository で管理します。
+
+有料版は `02.00.00` 以降として扱います。
+
+## バージョン方針
+
+ErrorInsight では、バージョンを `00.00.00` 形式で表記します。
+
+- `00.50.00`: Version 0.5
+- `01.00.00`: 無料版 Version 1
+- `02.00.00`: 有料版 Version 2
+- 小さな変更では一番右の数字を更新する
+- 重要な機能追加では必ず右から3桁目である中央の数字を1つ上げる
+- 例: `00.00.00` から重要な機能追加をした場合は `00.01.00` にする
+- 大きな変更になるほど左側の数字を更新する
+
+詳細な履歴は `docs/00_version-history.md` に記録します。
 
 ## 起動方法
 
@@ -130,6 +148,7 @@ ErrorInsight/
 │   ├── test_extractor.py
 │   └── test_presenter.py
 ├── docs/
+│   ├── 00_version-history.md
 │   ├── 01_requirements.md
 │   ├── 02_external-design.md
 │   ├── 03_internal-design.md
@@ -160,6 +179,7 @@ Python パッケージ構成と `pyproject.toml` を追加した段階で、イ�
 
 | ファイル | 役割 |
 | --- | --- |
+| `docs/00_version-history.md` | バージョン表記ルール・履歴 |
 | `docs/01_requirements.md` | 要件定義 |
 | `docs/02_external-design.md` | 外部設計 |
 | `docs/03_internal-design.md` | 内部設計 |
