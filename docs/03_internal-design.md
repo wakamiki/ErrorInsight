@@ -55,16 +55,16 @@ lines: list[str]
 3. エラー候補行を抽出する
 
 ```text
-error_lines: list[dict]
+error_lines: list[ErrorLine]
 ```
 
-各要素は、元ログ上の行番号とエラー行を持つ。
+各要素は、`ErrorLine` として元ログ上の行番号とエラー行を持つ。
 
 ```text
-{
-  "line_number": 12,
-  "text": "ValueError: invalid literal for int() with base 10: 'abc'"
-}
+ErrorLine(
+  line_number=12,
+  text="ValueError: invalid literal for int() with base 10: 'abc'"
+)
 ```
 
 4. 表示用文字列に整形する
@@ -95,7 +95,14 @@ CLI起動時の入口。
 ログ文字列からエラーらしい行を抽出する。
 
 - 入力: ログ文字列
-- 出力: エラー候補行一覧
+- 出力: `list[ErrorLine]`
+
+### ErrorLine
+
+1件のエラー候補行を表すデータ型。
+
+- `line_number`: 元ログ上の行番号
+- `text`: 元ログのエラー行文字列
 
 ### format_result
 
