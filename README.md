@@ -27,7 +27,7 @@ ErrorInsight は、日本語話者の初学者・学習中エンジニア・個�
 - 日本語話者の初学者
 - 英語のエラーログを読むことに慣れていない学習者
 - 個人開発中にログの読むべき箇所を素早く見つけたい人
-- Python / Java / C# の代表的なエラーを日本語で確認したい人
+- Python / Java / C# / JavaScript / SQL の代表的なエラーを日本語で確認したい人
 
 ## 安全性について
 
@@ -166,6 +166,17 @@ ValueError: invalid literal for int() with base 10: 'abc'
 - `filenotfoundexception`
 - `ioexception`
 - `invalidoperationexception`
+- `uncaught`
+- `referenceerror`
+- `syntaxerror`
+- `cannot read properties`
+- `undefined`
+- `sqlstate`
+- `syntax error`
+- `duplicate key`
+- `constraint`
+- `relation does not exist`
+- `no such table`
 
 キーワードの追加や調整は、処理の中に直接散らばらせず、変更しやすい形を意識します。
 
