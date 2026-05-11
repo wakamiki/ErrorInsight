@@ -36,11 +36,16 @@
 ## 分析処理
 
 - 抽出済みのエラー行を対象にする
+- ログ全体から言語の特徴を確認し、`language_hint` を作る
+- `language_hint` がある場合は、該当言語の分析ルールを優先して判定する
 - エラー行に含まれる例外名やキーワードから簡易分析する
 - エラー種別ごとの簡易説明を作る
 - エラー行から見て取れる範囲の原因候補を作る
 - よくある確認ポイントを作る
 - Python / Java / C# / JavaScript / SQL の代表的なエラーを対象にする
+- 分析ルールは、頻度が高く具体的なキーワードを優先し、`error`、`warning`、`exception` のような広いキーワードは後ろに置く
+- エラー本文から型名、属性名、変数名などのヒントを取り出せる場合は、必要な分析ルールにだけヒント抽出ルールを持たせる
+- ヒント抽出では、同じエラー行を全ルールで再判定しない
 - 判断できない場合は「不明」とする
 - ログ全体の文脈、ソースコード、実行環境、外部AI APIを使った複雑な推測は行わない
 
@@ -82,7 +87,15 @@ ErrorLine(
 )
 ```
 
-4. エラー候補行を簡易分析する
+4. ログ全体から言語ヒントを作る
+
+```text
+language_hint: str
+```
+
+言語を判断できない場合は、共通ルールを優先できる値として扱う。
+
+5. エラー候補行を簡易分析する
 
 ```text
 analysis_results: list[ErrorAnalysis]
@@ -96,13 +109,14 @@ ErrorAnalysis(
     line_number=12,
     text="ValueError: invalid literal for int() with base 10: 'abc'"
   ),
+  language_hint="Python",
   description="値の変換に失敗した可能性があります。",
   cause_candidate="数値に変換できない文字列をint()などに渡している可能性があります。",
   check_point="入力値、型変換前の文字列、空文字や想定外の値が入っていないかを確認してください。"
 )
 ```
 
-5. 表示用文字列に整形する
+6. 表示用文字列に整形する
 
 ```text
 output_text: str
@@ -139,11 +153,36 @@ CLI起動時の入口。
 - `line_number`: 元ログ上の行番号
 - `text`: 元ログのエラー行文字列
 
+### detect_language_hint
+
+ログ全体から言語の特徴を探し、分析ルールの優先順を決めるためのヒントを作る。
+
+- 入力: ログ文字列
+- 出力: 言語ヒント文字列
+
+### AnalysisRule
+
+エラー種別ごとの判定条件と表示内容を表すデータ型。
+
+- `keyword`: エラー行に含まれていたら、このルールを使う判定文字列
+- `language_hint`: どの言語向けのルールかを表す文字列
+- `description`: エラー種別の簡易説明
+- `cause_candidate`: 原因候補
+- `check_point`: よくある確認ポイント
+- `hint_rule`: 必要な場合だけ持つ、エラー本文から追加ヒントを取り出すためのルール
+
+### HintRule
+
+エラー本文から型名、属性名、変数名などを取り出すためのルール。
+
+- `pattern`: エラー本文から情報を抜き出すための正規表現
+- `template`: 抜き出した情報を確認ポイントへ追加するための文面
+
 ### analyze_error_lines
 
 抽出済みのエラー行から簡易分析結果を作る。
 
-- 入力: `list[ErrorLine]`
+- 入力: `list[ErrorLine]`、言語ヒント
 - 出力: `list[ErrorAnalysis]`
 
 ### ErrorAnalysis
@@ -151,6 +190,7 @@ CLI起動時の入口。
 1件のエラー候補行に対する簡易分析結果を表すデータ型。
 
 - `error_line`: 元のエラー候補行
+- `language_hint`: 判定に使った言語ヒント
 - `description`: エラー種別の簡易説明
 - `cause_candidate`: 原因候補
 - `check_point`: よくある確認ポイント
