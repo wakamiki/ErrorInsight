@@ -12,6 +12,7 @@ class ErrorAnalysis:
     cause_candidate: str  # 原因の候補
     check_point: str  # 確認すべきポイント
 
+
 SQL_LANGUAGE_HINT_KEYWORDS: tuple[str, ...] = (
     "sqlstate",
     "ora-",
@@ -53,10 +54,10 @@ JAVASCRIPT_LANGUAGE_HINT_KEYWORDS: tuple[str, ...] = (
 
 
 def detect_language_hint(log: str) -> str:
-    #エラー文から言語っぽさを推定する
+    # エラー文から言語っぽさを推定する
     if any(keyword in log.lower() for keyword in SQL_LANGUAGE_HINT_KEYWORDS):
         return "SQL"
-    elif any(keyword in log.lower() for keyword in PYTHON_LANGUAGE_HINT_KEYWORDS)   :
+    elif any(keyword in log.lower() for keyword in PYTHON_LANGUAGE_HINT_KEYWORDS):
         return "Python"
     elif any(keyword in log.lower() for keyword in JAVA_LANGUAGE_HINT_KEYWORDS):
         return "Java"
@@ -67,9 +68,20 @@ def detect_language_hint(log: str) -> str:
     else:
         return "不明"
 
+
 def get_prioritized_rules(error_line: ErrorLine) -> list[AnalysisRule]:
     # 言語ヒントに応じて、先に見るルール一覧を決める
     return []
+
+
+def extract_hint(rule: AnalysisRule, error_text: str) -> str | None:
+    if rule.hint_rule is None:
+        return None
+    match = rule.hint_rule.pattern.search(error_text)
+    if match is None:
+        return None
+    return rule.hint_rule.template.format(**match.groupdict())
+
 
 def analyze_error_line(error_line: ErrorLine, language_hint: str) -> ErrorAnalysis:
     if "valueerror" in error_line.text.lower():
@@ -87,4 +99,6 @@ def analyze_error_line(error_line: ErrorLine, language_hint: str) -> ErrorAnalys
         cause_candidate="不明",
         check_point="エラー行の前後や直前に変更したコードを確認してください。",
     )
-#実際にルールを当てて ErrorAnalysis を返す
+
+
+# 実際にルールを当てて ErrorAnalysis を返す
