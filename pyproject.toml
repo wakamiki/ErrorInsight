@@ -5,6 +5,7 @@ description = "CLI tool to extract suspicious error lines from clipboard logs."
 requires-python = ">=3.11"
 dependencies = [
     "pyperclip",
+    "wcwidth",
 ]
 
 [project.optional-dependencies]

@@ -11,8 +11,16 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="import文、インストール状態、仮想環境を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"No module named '(?P<module_name>[^']+)'"),
-            template="ヒント: モジュール '{module_name}' が見つかりません。",
+            template="モジュール '{module_name}' が見つかりません。",
         ),
+    ),
+    AnalysisRule(
+        keyword="traceback",
+        language_hint="Python",
+        description="Pythonのスタックトレース開始行です。",
+        cause_candidate="実際の原因は、この後に表示される具体的な例外名にある可能性があります。",
+        check_point="Tracebackの最後の方にある例外名とメッセージを確認してください。",
+        hint_rule=None,
     ),
     AnalysisRule(
         keyword="importerror",
@@ -24,7 +32,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"cannot import name '(?P<import_name>[^']+)' from '(?P<module_name>[^']+)'"
             ),
-            template="ヒント: importしようとした名前は '{import_name}'、import元のモジュールは '{module_name}' です。",
+            template="importしようとした名前は '{import_name}'、import元のモジュールは '{module_name}' です。",
         ),
     ),
     AnalysisRule(
@@ -37,7 +45,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"FileNotFoundError: \[Errno 2\] No such file or directory: '(?P<file_path>[^']+)'"
             ),
-            template="ヒント: ファイル '{file_path}' が見つかりません。",
+            template="ファイル '{file_path}' が見つかりません。",
         ),
     ),
     AnalysisRule(
@@ -50,7 +58,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"PermissionError: \[Errno \d+\] Permission denied: '(?P<file_path>[^']+)'"
             ),
-            template="ヒント: ファイル '{file_path}' へのアクセス権限がありません。",
+            template="ファイル '{file_path}' へのアクセス権限がありません。",
         ),
     ),
     AnalysisRule(
@@ -61,7 +69,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="入力値、変換処理、関数引数を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"ValueError: (?P<error_message>.+)"),
-            template="ヒント: エラー内容は '{error_message}' です。",
+            template="エラー内容は '{error_message}' です。",
         ),
     ),
     AnalysisRule(
@@ -72,7 +80,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="変数型、関数引数、演算対象を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"TypeError: (?P<error_message>.+)"),
-            template="ヒント: エラー内容は '{error_message}' です。",
+            template="エラー内容は '{error_message}' です。",
         ),
     ),
     AnalysisRule(
@@ -85,7 +93,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"'(?P<object_type>[^']+)' object has no attribute '(?P<attribute_name>[^']+)'"
             ),
-            template="ヒント: 対象の型は '{object_type}'、存在しない属性またはメソッド名は '{attribute_name}' です。型と属性名・メソッド名を確認してください。",
+            template="対象の型は '{object_type}'、存在しない属性またはメソッド名は '{attribute_name}' です。型と属性名・メソッド名を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -96,7 +104,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="変数名、定義箇所、import文を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"NameError: name '(?P<name>[^']+)' is not defined"),
-            template="ヒント: 変数 '{name}' は定義されていません。",
+            template="変数 '{name}' は定義されていません。",
         ),
     ),
     AnalysisRule(
@@ -107,7 +115,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="index値、配列やリストの要素数を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"IndexError: list index out of range"),
-            template="ヒント: リストの範囲外にアクセスしています。",
+            template="リストの範囲外にアクセスしています。",
         ),
     ),
     AnalysisRule(
@@ -118,7 +126,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="キー名、dict内容を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"KeyError: '(?P<key>[^']+)'"),
-            template="ヒント: キー '{key}' は存在しません。",
+            template="キー '{key}' は存在しません。",
         ),
     ),
     AnalysisRule(
@@ -169,7 +177,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="エラー直前の処理、実行状態、詳細メッセージを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"RuntimeError: (?P<error_message>.+)"),
-            template="ヒント: エラー内容は '{error_message}' です。",
+            template="エラー内容は '{error_message}' です。",
         ),
     ),
     AnalysisRule(
@@ -206,7 +214,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"OSError: \[Errno (?P<errno>\d+)\] (?P<error_message>.+)"
             ),
-            template="ヒント: エラー番号は {errno}、エラー内容は '{error_message}' です。",
+            template="エラー番号は {errno}、エラー内容は '{error_message}' です。",
         ),
     ),
     AnalysisRule(
@@ -265,7 +273,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="bytes型使用箇所、encode/decode処理を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"BytesWarning: (?P<warning_message>.+)"),
-            template="ヒント: 警告内容は '{warning_message}' です。",
+            template="警告内容は '{warning_message}' です。",
         ),
     ),
     AnalysisRule(
@@ -276,7 +284,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="subprocess実行内容、プロセス状態を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"ChildProcessError: (?P<error_message>.+)"),
-            template="ヒント: エラー内容は '{error_message}' です。",
+            template="エラー内容は '{error_message}' です。",
         ),
     ),
     AnalysisRule(
@@ -303,7 +311,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="使用API、推奨代替方法、ライブラリバージョンを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"DeprecationWarning: (?P<warning_message>.+)"),
-            template="ヒント: 警告内容は '{warning_message}' です。",
+            template="警告内容は '{warning_message}' です。",
         ),
     ),
     AnalysisRule(
@@ -324,7 +332,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"FileExistsError: \[Errno 17\] File exists: '(?P<file_path>[^']+)'"
             ),
-            template="ヒント: ファイル '{file_path}' は既に存在しています。",
+            template="ファイル '{file_path}' は既に存在しています。",
         ),
     ),
     AnalysisRule(
@@ -343,7 +351,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="warning対象API、バージョン変更内容を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"FutureWarning: (?P<warning_message>.+)"),
-            template="ヒント: 警告内容は '{warning_message}' です。",
+            template="警告内容は '{warning_message}' です。",
         ),
     ),
     AnalysisRule(
@@ -362,7 +370,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="import文、モジュール構成を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"ImportWarning: (?P<warning_message>.+)"),
-            template="ヒント: 警告内容は '{warning_message}' です。",
+            template="警告内容は '{warning_message}' です。",
         ),
     ),
     AnalysisRule(
@@ -383,7 +391,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"IsADirectoryError: \[Errno 21\] Is a directory: '(?P<file_path>[^']+)'"
             ),
-            template="ヒント: パス '{file_path}' はディレクトリです。",
+            template="パス '{file_path}' はディレクトリです。",
         ),
     ),
     AnalysisRule(
@@ -420,7 +428,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"NotADirectoryError: \[Errno 20\] Not a directory: '(?P<file_path>[^']+)'"
             ),
-            template="ヒント: パス '{file_path}' はディレクトリではありません。",
+            template="パス '{file_path}' はディレクトリではありません。",
         ),
     ),
     AnalysisRule(
@@ -447,7 +455,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="使用API、今後の変更予定、ライブラリ更新情報を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"PendingDeprecationWarning: (?P<warning_message>.+)"),
-            template="ヒント: 警告内容は '{warning_message}' です",
+            template="警告内容は '{warning_message}' です",
         ),
     ),
     AnalysisRule(
@@ -474,7 +482,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="ファイル操作、close処理、with文使用有無を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"name='(?P<resource_name>[^']+)'"),
-            template="ヒント: 閉じられていない可能性があるリソースは '{resource_name}' です。with文を使うか、処理後にcloseしているかを確認してください。",
+            template="閉じられていない可能性があるリソースは '{resource_name}' です。with文を使うか、処理後にcloseしているかを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -485,7 +493,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="warning発生箇所、実行中処理を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"RuntimeWarning: (?P<warning_message>.+)"),
-            template="ヒント: 警告内容は '{warning_message}' です。",
+            template="警告内容は '{warning_message}' です。",
         ),
     ),
     AnalysisRule(
@@ -512,7 +520,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="warning対象コード、文法記述を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"SyntaxWarning: (?P<warning_message>.+)"),
-            template="ヒント: 警告内容は '{warning_message}' です。",
+            template="警告内容は '{warning_message}' です。",
         ),
     ),
     AnalysisRule(
@@ -523,7 +531,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="sys.exit使用箇所、終了コードを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"SystemExit: (?P<exit_code>\d+)"),
-            template="ヒント: 終了コードは '{exit_code}' です。sys.exitに渡している値や、異常終了として扱っている条件を確認してください。",
+            template="終了コードは '{exit_code}' です。sys.exitに渡している値や、異常終了として扱っている条件を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -536,7 +544,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"cannot access local variable '(?P<variable_name>[^']+)' where it is not associated with a value"
             ),
-            template="ヒント: 値が入る前に参照されている可能性があるローカル変数は '{variable_name}' です。条件分岐の中だけで代入していないか、global/nonlocalが必要な変数ではないかを確認してください。",
+            template="値が入る前に参照されている可能性があるローカル変数は '{variable_name}' です。条件分岐の中だけで代入していないか、global/nonlocalが必要な変数ではないかを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -549,7 +557,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"'(?P<encoding>[^']+)' codec can't decode byte (?P<byte_value>0x[0-9a-fA-F]+)"
             ),
-            template="ヒント: 使用している文字コードは '{encoding}'、読み取れなかったバイト値は '{byte_value}' です。ファイルの文字コードとopen時のencoding指定が合っているかを確認してください。",
+            template="使用している文字コードは '{encoding}'、読み取れなかったバイト値は '{byte_value}' です。ファイルの文字コードとopen時のencoding指定が合っているかを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -562,7 +570,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"'(?P<encoding>[^']+)' codec can't encode character '(?P<character>[^']+)'"
             ),
-            template="ヒント: 使用している文字コードは '{encoding}'、変換できなかった文字は '{character}' です。出力先の文字コードやencoding指定が、その文字を扱えるか確認してください。",
+            template="使用している文字コードは '{encoding}'、変換できなかった文字は '{character}' です。出力先の文字コードやencoding指定が、その文字を扱えるか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -581,7 +589,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="translate処理、対象文字列、文字コード設定を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"can't translate character '(?P<character>[^']+)'"),
-            template="ヒント: 変換できなかった文字は '{character}' です。文字変換テーブルやtranslate処理で、その文字に対応する変換先が定義されているか確認してください。",
+            template="変換できなかった文字は '{character}' です。文字変換テーブルやtranslate処理で、その文字に対応する変換先が定義されているか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -592,7 +600,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="文字コード設定、入出力データを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"UnicodeWarning: (?P<warning_message>.+)"),
-            template="ヒント: 警告内容は '{warning_message}' です。文字コード設定や変換処理を見直してください。",
+            template="警告内容は '{warning_message}' です。文字コード設定や変換処理を見直してください。",
         ),
     ),
     AnalysisRule(
@@ -603,7 +611,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="warnings.warn使用箇所、警告内容を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"UserWarning: (?P<warning_message>.+)"),
-            template="ヒント: 警告内容は '{warning_message}' です。warnings.warnを呼び出している箇所と、その警告内容を確認してください。",
+            template="警告内容は '{warning_message}' です。warnings.warnを呼び出している箇所と、その警告内容を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -614,7 +622,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="warning内容、対象処理を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"Warning: (?P<warning_message>.+)"),
-            template="ヒント: 警告内容は '{warning_message}' です ",
+            template="警告内容は '{warning_message}' です ",
         ),
     ),
     AnalysisRule(
@@ -625,7 +633,7 @@ PYTHON_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="実行環境、使用ライブラリ、Pythonバージョンを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"SystemError: (?P<error_message>.+)"),
-            template="ヒント: エラー内容は '{error_message}' です。Pythonの内部処理や拡張ライブラリの問題の可能性があります。",
+            template="エラー内容は '{error_message}' です。Pythonの内部処理や拡張ライブラリの問題の可能性があります。",
         ),
     ),
     AnalysisRule(
@@ -650,7 +658,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r'Cannot invoke "(?P<method_name>[^"]+)" because "(?P<variable_name>[^"]+)" is null'
             ),
-            template="ヒント: nullの可能性がある変数は '{variable_name}'、呼び出そうとしたメソッドは '{method_name}' です。変数に値が入っているか、呼び出し前にnullチェックが必要かを確認してください。",
+            template="nullの可能性がある変数は '{variable_name}'、呼び出そうとしたメソッドは '{method_name}' です。変数に値が入っているか、呼び出し前にnullチェックが必要かを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -661,7 +669,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="ファイルパス、カレントディレクトリ、ファイル存在有無を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"FileNotFoundException: (?P<file_path>.+?)(?: \(|$)"),
-            template="ヒント: 見つからなかった可能性があるファイルは '{file_path}' です。ファイルの場所、ファイル名、実行時のカレントディレクトリを確認してください。",
+            template="見つからなかった可能性があるファイルは '{file_path}' です。ファイルの場所、ファイル名、実行時のカレントディレクトリを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -674,7 +682,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"ClassNotFoundException: (?P<class_name>[A-Za-z0-9_.$]+)"
             ),
-            template="ヒント: 見つからなかったクラスは '{class_name}' です。クラス名、パッケージ名、依存関係、ビルド後のクラスパスに含まれているかを確認してください。",
+            template="見つからなかったクラスは '{class_name}' です。クラス名、パッケージ名、依存関係、ビルド後のクラスパスに含まれているかを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -685,7 +693,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="メソッド引数、入力値、バリデーションを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"IllegalArgumentException: (?P<message>.+)"),
-            template="ヒント: エラー本文の詳細は '{message}' です。メソッドに渡している引数の値、範囲、形式、null不可条件を確認してください。",
+            template="エラー本文の詳細は '{message}' です。メソッドに渡している引数の値、範囲、形式、null不可条件を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -696,7 +704,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="入力文字列、parse処理、数値形式を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r'For input string: "(?P<input_value>[^"]+)"'),
-            template="ヒント: 数値に変換できなかった文字列は '{input_value}' です。空文字、数値以外の文字、全角数字、カンマなどが混ざっていないか確認してください。",
+            template="数値に変換できなかった文字列は '{input_value}' です。空文字、数値以外の文字、全角数字、カンマなどが混ざっていないか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -709,7 +717,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Index (?P<index>\d+) out of bounds for length (?P<length>\d+)"
             ),
-            template="ヒント: 指定したインデックスは '{index}'、要素数は '{length}' です。参照している位置が0以上かつ要素数未満になっているか確認してください。",
+            template="指定したインデックスは '{index}'、要素数は '{length}' です。参照している位置が0以上かつ要素数未満になっているか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -722,7 +730,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Index (?P<index>\d+) out of bounds for length (?P<length>\d+)"
             ),
-            template="ヒント: 指定した配列インデックスは '{index}'、配列の長さは '{length}' です。配列の参照位置が0以上かつ配列長未満になっているか確認してください。",
+            template="指定した配列インデックスは '{index}'、配列の長さは '{length}' です。配列の参照位置が0以上かつ配列長未満になっているか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -735,7 +743,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Index (?P<index>\d+) out of bounds for length (?P<length>\d+)"
             ),
-            template="ヒント: 指定した文字位置は '{index}'、文字列の長さは '{length}' です。charAt、substring、文字列切り出しの開始位置・終了位置が範囲内か確認してください。",
+            template="指定した文字位置は '{index}'、文字列の長さは '{length}' です。charAt、substring、文字列切り出しの開始位置・終了位置が範囲内か確認してください。",
         ),
     ),
     AnalysisRule(
@@ -748,7 +756,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"class (?P<source_type>[A-Za-z0-9_.$]+) cannot be cast to class (?P<target_type>[A-Za-z0-9_.$]+)"
             ),
-            template="ヒント: 実際の型は '{source_type}'、変換しようとした型は '{target_type}' です。キャスト前のオブジェクトの型、ジェネリクス、instanceofによる確認を見直してください。",
+            template="実際の型は '{source_type}'、変換しようとした型は '{target_type}' です。キャスト前のオブジェクトの型、ジェネリクス、instanceofによる確認を見直してください。",
         ),
     ),
     AnalysisRule(
@@ -759,7 +767,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="実行順序、オブジェクト状態、初期化処理を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"IllegalStateException: (?P<message>.+)"),
-            template="ヒント: エラー本文の詳細は '{message}' です。処理を呼び出す順番、現在の状態、初期化済みかどうかを確認してください。",
+            template="エラー本文の詳細は '{message}' です。処理を呼び出す順番、現在の状態、初期化済みかどうかを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -804,7 +812,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"NoSuchMethodException: (?P<method_signature>[A-Za-z0-9_.$(),\s]+)"
             ),
-            template="ヒント: 見つからなかったメソッドは '{method_signature}' です。メソッド名、引数の型、アクセス修飾子、実行時に読み込まれているクラスのバージョンを確認してください。",
+            template="見つからなかったメソッドは '{method_signature}' です。メソッド名、引数の型、アクセス修飾子、実行時に読み込まれているクラスのバージョンを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -817,7 +825,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"NoSuchFieldException: (?P<field_name>[A-Za-z0-9_.$]+)"
             ),
-            template="ヒント: 見つからなかったフィールドは '{field_name}' です。フィールド名、アクセス修飾子、実行時に読み込まれているクラスのバージョンを確認してください。",
+            template="見つからなかったフィールドは '{field_name}' です。フィールド名、アクセス修飾子、実行時に読み込まれているクラスのバージョンを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -828,7 +836,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="実装クラス、override有無、ライブラリバージョンを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"AbstractMethodError: (?P<message>.+)"),
-            template="ヒント: エラー本文の詳細は '{message}' です。実装クラスが必要なメソッドを実装しているか、依存ライブラリのバージョン不一致がないか確認してください。",
+            template="エラー本文の詳細は '{message}' です。実装クラスが必要なメソッドを実装しているか、依存ライブラリのバージョン不一致がないか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -847,7 +855,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="配列型、格納データ型を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"ArrayStoreException: (?P<message>.+)"),
-            template="ヒント: エラー本文の詳細は '{message}' です。配列に入れようとしている値の型と、配列が受け入れられる型が一致しているか確認してください。",
+            template="エラー本文の詳細は '{message}' です。配列に入れようとしている値の型と、配列が受け入れられる型が一致しているか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -858,7 +866,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="assert条件、入力値、実行状態を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"AssertionError: (?P<message>.+)"),
-            template="ヒント: assertionの失敗メッセージは '{message}' です。期待値と実際の値、テスト条件、assertしている前提が正しいか確認してください。",
+            template="assertionの失敗メッセージは '{message}' です。期待値と実際の値、テスト条件、assertしている前提が正しいか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -885,7 +893,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="文字コード設定、入出力データ、encode/decode処理を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"CharConversionException: (?P<message>.+)"),
-            template="ヒント: 文字変換エラーの詳細は '{message}' です。入力データの文字コード、読み込み時のencoding指定、変換できない文字が含まれていないか確認してください。",
+            template="文字変換エラーの詳細は '{message}' です。入力データの文字コード、読み込み時のencoding指定、変換できない文字が含まれていないか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -898,7 +906,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"ClassCircularityError: (?P<class_name>[A-Za-z0-9_.$]+)"
             ),
-            template="ヒント: 循環参照している可能性があるクラスは '{class_name}' です。継承関係、内部クラス、クラス生成処理、依存関係の循環を確認してください。",
+            template="循環参照している可能性があるクラスは '{class_name}' です。継承関係、内部クラス、クラス生成処理、依存関係の循環を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -917,7 +925,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="Cloneable実装有無、clone呼び出し箇所を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"CloneNotSupportedException: (?P<message>.+)"),
-            template="ヒント: clone失敗の詳細は '{message}' です。対象クラスがCloneableを実装しているか、cloneメソッドの実装やアクセス修飾子を確認してください。",
+            template="clone失敗の詳細は '{message}' です。対象クラスがCloneableを実装しているか、cloneメソッドの実装やアクセス修飾子を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -930,7 +938,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"CompletionException: (?P<cause_exception>[A-Za-z0-9_.$]+)(?:: (?P<message>.+))?"
             ),
-            template="ヒント: 非同期処理内で発生した可能性がある例外は '{cause_exception}' です。CompletableFuture内の処理、例外の原因、join/getで包まれた元の例外を確認してください。",
+            template="非同期処理内で発生した可能性がある例外は '{cause_exception}' です。CompletableFuture内の処理、例外の原因、join/getで包まれた元の例外を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -959,7 +967,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"EnumConstantNotPresentException: (?P<enum_path>[A-Za-z0-9_.$]+)"
             ),
-            template="ヒント: 見つからなかった可能性があるenum定数は '{enum_path}' です。enum定数名のスペル、定義有無、実行時に読み込まれているクラスのバージョンを確認してください。",
+            template="見つからなかった可能性があるenum定数は '{enum_path}' です。enum定数名のスペル、定義有無、実行時に読み込まれているクラスのバージョンを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -988,7 +996,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"ExecutionException: (?P<cause_exception>[A-Za-z0-9_.$]+)(?:: (?P<message>.+))?"
             ),
-            template="ヒント: 非同期処理やFuture内で発生した可能性がある例外は '{cause_exception}' です。Futureの中の処理、getで包まれた元の例外、スタックトレース下部の原因を確認してください。",
+            template="非同期処理やFuture内で発生した可能性がある例外は '{cause_exception}' です。Futureの中の処理、getで包まれた元の例外、スタックトレース下部の原因を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -999,7 +1007,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="access modifier、module設定、呼び出し元クラスを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"IllegalAccessError: (?P<message>.+)"),
-            template="ヒント: アクセス違反の詳細は '{message}' です。アクセス修飾子、package/moduleの境界、コンパイル時と実行時のクラスやライブラリのバージョン差分を確認してください。",
+            template="アクセス違反の詳細は '{message}' です。アクセス修飾子、package/moduleの境界、コンパイル時と実行時のクラスやライブラリのバージョン差分を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1010,7 +1018,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="access modifier、reflection使用箇所、対象クラスを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"IllegalAccessException: (?P<message>.+)"),
-            template="ヒント: アクセスできなかった詳細は '{message}' です。対象のメソッドやフィールドのアクセス修飾子、リフレクション時のsetAccessible、moduleの公開設定を確認してください。",
+            template="アクセスできなかった詳細は '{message}' です。対象のメソッドやフィールドのアクセス修飾子、リフレクション時のsetAccessible、moduleの公開設定を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1037,7 +1045,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="ライブラリバージョン、class変更内容、build状態を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"IncompatibleClassChangeError: (?P<message>.+)"),
-            template="ヒント: クラス互換性エラーの詳細は '{message}' です。コンパイル時と実行時で読み込まれているクラスやライブラリのバージョンが一致しているか確認してください。",
+            template="クラス互換性エラーの詳細は '{message}' です。コンパイル時と実行時で読み込まれているクラスやライブラリのバージョンが一致しているか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1056,7 +1064,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="new対象クラス、abstract/interface定義を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"InstantiationError: (?P<class_name>[A-Za-z0-9_.$]+)"),
-            template="ヒント: インスタンス化できなかったクラスは '{class_name}' です。abstract class、interface、コンストラクタ、依存ライブラリのバージョン不一致を確認してください。",
+            template="インスタンス化できなかったクラスは '{class_name}' です。abstract class、interface、コンストラクタ、依存ライブラリのバージョン不一致を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1069,7 +1077,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"InstantiationException: (?P<class_name>[A-Za-z0-9_.$]+)"
             ),
-            template="ヒント: インスタンス化できなかったクラスは '{class_name}' です。抽象クラス、interface、引数なしコンストラクタ、アクセス修飾子を確認してください。",
+            template="インスタンス化できなかったクラスは '{class_name}' です。抽象クラス、interface、引数なしコンストラクタ、アクセス修飾子を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1098,7 +1106,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"InvalidClassException: (?P<class_name>[A-Za-z0-9_.$]+)"
             ),
-            template="ヒント: シリアライズ互換性に問題がある可能性があるクラスは '{class_name}' です。serialVersionUID、クラス定義の変更、保存済みデータとの互換性を確認してください。",
+            template="シリアライズ互換性に問題がある可能性があるクラスは '{class_name}' です。serialVersionUID、クラス定義の変更、保存済みデータとの互換性を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1109,7 +1117,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="deserialize処理、保存データ、オブジェクト状態を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"InvalidObjectException: (?P<message>.+)"),
-            template="ヒント: 不正なオブジェクト状態の詳細は '{message}' です。デシリアライズ後の必須項目、readObject/readResolve、保存済みデータとの互換性を確認してください。",
+            template="不正なオブジェクト状態の詳細は '{message}' です。デシリアライズ後の必須項目、readObject/readResolve、保存済みデータとの互換性を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1130,7 +1138,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"MalformedInputException: Input length = (?P<input_length>\d+)"
             ),
-            template="ヒント: 不正な入力として扱われた長さは '{input_length}' です。ファイルや入力データの文字コード、読み込み時のCharset指定、壊れたバイト列がないか確認してください。",
+            template="不正な入力として扱われた長さは '{input_length}' です。ファイルや入力データの文字コード、読み込み時のCharset指定、壊れたバイト列がないか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1143,7 +1151,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Can't find bundle for base name (?P<base_name>[^,]+), locale (?P<locale>[A-Za-z_]+)"
             ),
-            template="ヒント: 見つからなかったリソースのbase nameは '{base_name}'、localeは '{locale}' です。propertiesファイル名、配置場所、クラスパス、ロケール別ファイルの有無を確認してください。",
+            template="見つからなかったリソースのbase nameは '{base_name}'、localeは '{locale}' です。propertiesファイル名、配置場所、クラスパス、ロケール別ファイルの有無を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1154,7 +1162,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="配列サイズ値、計算結果を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"NegativeArraySizeException: (?P<size>-\d+)"),
-            template="ヒント: 配列サイズとして指定された負の値は '{size}' です。配列生成前のサイズ計算、入力値、減算結果が0以上になっているか確認してください。",
+            template="配列サイズとして指定された負の値は '{size}' です。配列生成前のサイズ計算、入力値、減算結果が0以上になっているか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1167,7 +1175,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"NoClassDefFoundError: (?P<class_name>[A-Za-z0-9_.$/]+)"
             ),
-            template="ヒント: 実行時に見つからなかったクラスは '{class_name}' です。依存関係、クラスパス、ビルド成果物、実行時に読み込まれているjarを確認してください。",
+            template="実行時に見つからなかったクラスは '{class_name}' です。依存関係、クラスパス、ビルド成果物、実行時に読み込まれているjarを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1186,7 +1194,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="フィールド名、ライブラリバージョン、class更新状態を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"NoSuchFieldError: (?P<field_name>[A-Za-z0-9_.$]+)"),
-            template="ヒント: 実行時に見つからなかったフィールドは '{field_name}' です。コンパイル時と実行時で読み込まれているクラスやライブラリのバージョンが一致しているか確認してください。",
+            template="実行時に見つからなかったフィールドは '{field_name}' です。コンパイル時と実行時で読み込まれているクラスやライブラリのバージョンが一致しているか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1197,7 +1205,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="メソッド名、引数、ライブラリバージョンを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"NoSuchMethodError: (?P<method_signature>.+)"),
-            template="ヒント: 実行時に見つからなかったメソッドは '{method_signature}' です。コンパイル時と実行時で読み込まれているクラスやライブラリのバージョンが一致しているか確認してください。",
+            template="実行時に見つからなかったメソッドは '{method_signature}' です。コンパイル時と実行時で読み込まれているクラスやライブラリのバージョンが一致しているか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1210,7 +1218,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"NotSerializableException: (?P<class_name>[A-Za-z0-9_.$]+)"
             ),
-            template="ヒント: シリアライズできなかったクラスは '{class_name}' です。Serializableを実装しているか、フィールドにシリアライズできないオブジェクトが含まれていないか確認してください。",
+            template="シリアライズできなかったクラスは '{class_name}' です。Serializableを実装しているか、フィールドにシリアライズできないオブジェクトが含まれていないか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1221,7 +1229,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="Serializable実装、stream処理、保存データを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"ObjectStreamException: (?P<message>.+)"),
-            template="ヒント: オブジェクトストリーム処理の詳細は '{message}' です。シリアライズ対象のクラス、serialVersionUID、保存済みデータとの互換性を確認してください。",
+            template="オブジェクトストリーム処理の詳細は '{message}' です。シリアライズ対象のクラス、serialVersionUID、保存済みデータとの互換性を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1248,7 +1256,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="入力データ、parse対象形式、フォーマット設定を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"ParseException: (?P<message>.+)"),
-            template="ヒント: 解析失敗の詳細は '{message}' です。入力文字列の形式、日付フォーマット、区切り文字、想定している構文と一致しているか確認してください。",
+            template="解析失敗の詳細は '{message}' です。入力文字列の形式、日付フォーマット、区切り文字、想定している構文と一致しているか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1275,7 +1283,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="実行権限、セキュリティ設定、アクセス対象を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"SecurityException: (?P<message>.+)"),
-            template="ヒント: セキュリティ制限の詳細は '{message}' です。アクセス権限、ファイルやネットワークへの許可、SecurityManagerや実行環境の制限を確認してください。",
+            template="セキュリティ制限の詳細は '{message}' です。アクセス権限、ファイルやネットワークへの許可、SecurityManagerや実行環境の制限を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1288,7 +1296,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"SQLState: (?P<sql_state>[A-Z0-9]+)(?:, Error Code: (?P<error_code>\d+))?"
             ),
-            template="ヒント: SQLStateは '{sql_state}' です。再試行では直りにくいSQLエラーの可能性があります。SQL文、接続先、権限、テーブル定義、制約を確認してください。",
+            template="SQLStateは '{sql_state}' です。再試行では直りにくいSQLエラーの可能性があります。SQL文、接続先、権限、テーブル定義、制約を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1315,7 +1323,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="DB接続状態、通信状態、再試行有無を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"SQLState: (?P<sql_state>[A-Z0-9]+)"),
-            template="ヒント: SQLStateは '{sql_state}' です。一時的なSQLエラーの可能性があります。接続切れ、ロック、タイムアウト、DB負荷、再試行で改善する条件かを確認してください。",
+            template="SQLStateは '{sql_state}' です。一時的なSQLエラーの可能性があります。接続切れ、ロック、タイムアウト、DB負荷、再試行で改善する条件かを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1334,7 +1342,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="保存データ、serialize/deserialze処理、stream内容を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"invalid stream header: (?P<header>[A-Fa-f0-9]+)"),
-            template="ヒント: 不正なストリームヘッダーは '{header}' です。読み込んでいるデータがJavaのシリアライズ形式か、ファイルや通信データが壊れていないか確認してください。",
+            template="不正なストリームヘッダーは '{header}' です。読み込んでいるデータがJavaのシリアライズ形式か、ファイルや通信データが壊れていないか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1369,7 +1377,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="classpath、型名、使用ライブラリを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"Type (?P<type_name>[A-Za-z0-9_.$]+) not present"),
-            template="ヒント: 見つからなかった型は '{type_name}' です。クラス名、パッケージ名、依存関係、実行時のクラスパスに含まれているかを確認してください。",
+            template="見つからなかった型は '{type_name}' です。クラス名、パッケージ名、依存関係、実行時のクラスパスに含まれているかを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1382,7 +1390,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"UncheckedIOException: (?P<cause_exception>[A-Za-z0-9_.$]+)(?:: (?P<message>.+))?"
             ),
-            template="ヒント: 包まれている可能性があるIO例外は '{cause_exception}' です。ファイル、ディレクトリ、権限、文字コード、ストリーム処理の元のIOExceptionを確認してください。",
+            template="包まれている可能性があるIO例外は '{cause_exception}' です。ファイル、ディレクトリ、権限、文字コード、ストリーム処理の元のIOExceptionを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1395,7 +1403,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"UnmappableCharacterException: Input length = (?P<input_length>\d+)"
             ),
-            template="ヒント: 変換できなかった入力の長さは '{input_length}' です。出力先の文字コードで扱えない文字が含まれていないか、Charset指定が合っているか確認してください。",
+            template="変換できなかった入力の長さは '{input_length}' です。出力先の文字コードで扱えない文字が含まれていないか、Charset指定が合っているか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1408,7 +1416,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"UnsatisfiedLinkError: no (?P<library_name>[A-Za-z0-9_.$-]+) in java\.library\.path"
             ),
-            template="ヒント: 見つからなかったネイティブライブラリは '{library_name}' です。java.library.path、DLL/SO/DYLIBの配置場所、OSやCPUアーキテクチャが合っているか確認してください。",
+            template="見つからなかったネイティブライブラリは '{library_name}' です。java.library.path、DLL/SO/DYLIBの配置場所、OSやCPUアーキテクチャが合っているか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1421,7 +1429,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"UnsupportedCharsetException: (?P<charset_name>[A-Za-z0-9_.-]+)"
             ),
-            template="ヒント: サポートされていない文字コード名は '{charset_name}' です。文字コード名のスペル、標準Charset名、実行環境で利用できるCharsetかを確認してください。",
+            template="サポートされていない文字コード名は '{charset_name}' です。文字コード名のスペル、標準Charset名、実行環境で利用できるCharsetかを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1434,7 +1442,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"class file version (?P<class_version>\d+\.\d+).*versions up to (?P<runtime_version>\d+\.\d+)"
             ),
-            template="ヒント: クラスファイルのバージョンは '{class_version}'、実行環境が対応している上限は '{runtime_version}' です。コンパイル時と実行時のJavaバージョンが一致しているか確認してください。",
+            template="クラスファイルのバージョンは '{class_version}'、実行環境が対応している上限は '{runtime_version}' です。コンパイル時と実行時のJavaバージョンが一致しているか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1445,7 +1453,7 @@ JAVA_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="UTFデータ内容、encode/decode処理、保存形式を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"UTFDataFormatException: (?P<message>.+)"),
-            template="ヒント: UTFデータ形式エラーの詳細は '{message}' です。DataInput/DataOutputのUTF文字列、データ長、読み書き形式が一致しているか確認してください。",
+            template="UTFデータ形式エラーの詳細は '{message}' です。DataInput/DataOutputのUTF文字列、データ長、読み書き形式が一致しているか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1524,7 +1532,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="引数値、nullチェック、呼び出し元処理を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"Parameter '(?P<parameter_name>[^']+)'"),
-            template="ヒント: nullになっている可能性がある引数は '{parameter_name}' です。呼び出し元で値を渡しているか、null許容か、事前チェックが必要かを確認してください。",
+            template="nullになっている可能性がある引数は '{parameter_name}' です。呼び出し元で値を渡しているか、null許容か、事前チェックが必要かを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1559,7 +1567,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="ファイルパス、カレントディレクトリ、ファイル存在有無を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"Could not find file '(?P<file_path>[^']+)'"),
-            template="ヒント: 見つからなかった可能性があるファイルは '{file_path}' です。ファイルの場所、ファイル名、実行時のカレントディレクトリ、配置漏れを確認してください。",
+            template="見つからなかった可能性があるファイルは '{file_path}' です。ファイルの場所、ファイル名、実行時のカレントディレクトリ、配置漏れを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1570,7 +1578,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="ディレクトリパス、カレントディレクトリ、ディレクトリ存在有無を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"Could not find a part of the path '(?P<path>[^']+)'"),
-            template="ヒント: 見つからなかった可能性があるパスは '{path}' です。ディレクトリの存在、ファイル配置、実行時のカレントディレクトリ、パスの区切り文字を確認してください。",
+            template="見つからなかった可能性があるパスは '{path}' です。ディレクトリの存在、ファイル配置、実行時のカレントディレクトリ、パスの区切り文字を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1589,7 +1597,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="実行権限、対象パス、ファイル使用状況を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"Access to the path '(?P<path>[^']+)' is denied"),
-            template="ヒント: アクセスが拒否されたパスは '{path}' です。ファイルやフォルダの権限、読み取り専用属性、実行ユーザーの権限を確認してください。",
+            template="アクセスが拒否されたパスは '{path}' です。ファイルやフォルダの権限、読み取り専用属性、実行ユーザーの権限を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1618,7 +1626,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Unable to cast object of type '(?P<source_type>[^']+)' to type '(?P<target_type>[^']+)'"
             ),
-            template="ヒント: 実際の型は '{source_type}'、変換しようとした型は '{target_type}' です。キャスト前の型、as/isによる判定、ジェネリクスや戻り値の型を確認してください。",
+            template="実際の型は '{source_type}'、変換しようとした型は '{target_type}' です。キャスト前の型、as/isによる判定、ジェネリクスや戻り値の型を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1647,7 +1655,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Path: (?P<json_path>[^|]+) \| LineNumber: (?P<line_number>\d+) \| BytePositionInLine: (?P<byte_position>\d+)"
             ),
-            template="ヒント: JSON内の場所は '{json_path}'、行番号は '{line_number}'、バイト位置は '{byte_position}' です。該当項目の型、必須項目、JSON形式が想定と合っているか確認してください。",
+            template="JSON内の場所は '{json_path}'、行番号は '{line_number}'、バイト位置は '{byte_position}' です。該当項目の型、必須項目、JSON形式が想定と合っているか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1658,7 +1666,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="SQL文、DB接続状態、SQLエラー番号を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"SqlException: (?P<message>.+)"),
-            template="ヒント: SQLエラーの詳細は '{message}' です。SQL文、テーブル名、カラム名、接続先DB、権限、制約違反を確認してください。",
+            template="SQLエラーの詳細は '{message}' です。SQL文、テーブル名、カラム名、接続先DB、権限、制約違反を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1781,7 +1789,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="ドライブ名、接続状態を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"Could not find the drive '(?P<drive_name>[^']+)'"),
-            template="ヒント: 見つからなかったドライブは '{drive_name}' です。ドライブの接続状態、ドライブレター、ネットワークドライブ、実行環境で利用できるパスかを確認してください。",
+            template="見つからなかったドライブは '{drive_name}' です。ドライブの接続状態、ドライブレター、ネットワークドライブ、実行環境で利用できるパスかを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1810,7 +1818,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Unable to find an entry point named '(?P<entry_point>[^']+)' in DLL '(?P<dll_name>[^']+)'"
             ),
-            template="ヒント: 見つからなかったエントリポイントは '{entry_point}'、対象DLLは '{dll_name}' です。関数名、DLL名、DllImportの指定、32bit/64bitの一致を確認してください。",
+            template="見つからなかったエントリポイントは '{entry_point}'、対象DLLは '{dll_name}' です。関数名、DLL名、DllImportの指定、32bit/64bitの一致を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1837,7 +1845,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="access modifier、reflection使用箇所、field定義を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"FieldAccessException: (?P<message>.+)"),
-            template="ヒント: フィールドアクセス失敗の詳細は '{message}' です。フィールドのアクセス修飾子、static/instanceの違い、リフレクションやランタイム制約を確認してください。",
+            template="フィールドアクセス失敗の詳細は '{message}' です。フィールドのアクセス修飾子、static/instanceの違い、リフレクションやランタイム制約を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1850,7 +1858,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Could not load file or assembly '(?P<assembly_name>[^']+)'"
             ),
-            template="ヒント: 読み込みに失敗したファイルまたはアセンブリは '{assembly_name}' です。依存関係、DLL配置、バージョン不一致、ビルド出力に含まれているかを確認してください。",
+            template="読み込みに失敗したファイルまたはアセンブリは '{assembly_name}' です。依存関係、DLL配置、バージョン不一致、ビルド出力に含まれているかを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1887,7 +1895,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"The value of argument '(?P<argument_name>[^']+)' \((?P<value>[^)]+)\) is invalid for Enum type '(?P<enum_type>[^']+)'"
             ),
-            template="ヒント: 無効なenum引数は '{argument_name}'、値は '{value}'、enum型は '{enum_type}' です。定義済みのenum値か、数値変換やキャストが正しいか確認してください。",
+            template="無効なenum引数は '{argument_name}'、値は '{value}'、enum型は '{enum_type}' です。定義済みのenum値か、数値変換やキャストが正しいか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1906,7 +1914,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="timezone名、OS設定、timezoneデータを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"InvalidTimeZoneException: (?P<time_zone>.+)"),
-            template="ヒント: 無効な可能性があるタイムゾーン指定は '{time_zone}' です。タイムゾーンIDのスペル、IANA形式、Windows形式との違い、実行環境で利用できるIDかを確認してください。",
+            template="無効な可能性があるタイムゾーン指定は '{time_zone}' です。タイムゾーンIDのスペル、IANA形式、Windows形式との違い、実行環境で利用できるIDかを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1925,7 +1933,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="メソッド定義、access modifier、呼び出し元を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"MethodAccessException: (?P<message>.+)"),
-            template="ヒント: メソッドアクセス失敗の詳細は '{message}' です。メソッドのアクセス修飾子、static/instanceの違い、リフレクション、ライブラリや実行環境の制限を確認してください。",
+            template="メソッドアクセス失敗の詳細は '{message}' です。メソッドのアクセス修飾子、static/instanceの違い、リフレクション、ライブラリや実行環境の制限を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1936,7 +1944,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="フィールド名、DLLバージョン、class定義を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"Field not found: '(?P<field_name>[^']+)'"),
-            template="ヒント: 見つからなかったフィールドは '{field_name}' です。フィールド名、アクセス修飾子、ライブラリやアセンブリのバージョン不一致を確認してください。",
+            template="見つからなかったフィールドは '{field_name}' です。フィールド名、アクセス修飾子、ライブラリやアセンブリのバージョン不一致を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -1955,7 +1963,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="メソッド名、引数、DLLバージョンを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"Method not found: '(?P<method_signature>[^']+)'"),
-            template="ヒント: 見つからなかったメソッドは '{method_signature}' です。メソッド名、引数の型、戻り値、参照しているアセンブリのバージョンを確認してください。",
+            template="見つからなかったメソッドは '{method_signature}' です。メソッド名、引数の型、戻り値、参照しているアセンブリのバージョンを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2078,7 +2086,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="Serializable設定、保存データ、class構造を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"SerializationException: (?P<message>.+)"),
-            template="ヒント: シリアライズ失敗の詳細は '{message}' です。対象クラス、Serializable/DataContract、保存済みデータとの互換性、型名の変更を確認してください。",
+            template="シリアライズ失敗の詳細は '{message}' です。対象クラス、Serializable/DataContract、保存済みデータとの互換性、型名の変更を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2155,7 +2163,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"The time zone ID '(?P<time_zone_id>[^']+)' was not found"
             ),
-            template="ヒント: 見つからなかったタイムゾーンIDは '{time_zone_id}' です。Windows形式とIANA形式の違い、実行環境で利用できるタイムゾーンIDかを確認してください。",
+            template="見つからなかったタイムゾーンIDは '{time_zone_id}' です。Windows形式とIANA形式の違い、実行環境で利用できるタイムゾーンIDかを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2166,7 +2174,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="access modifier、型定義、assembly設定を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"TypeAccessException: (?P<message>.+)"),
-            template="ヒント: 型アクセス失敗の詳細は '{message}' です。型のアクセス修飾子、internal/public、アセンブリ参照、トリミングやAOTの影響を確認してください。",
+            template="型アクセス失敗の詳細は '{message}' です。型のアクセス修飾子、internal/public、アセンブリ参照、トリミングやAOTの影響を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2179,7 +2187,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"The type initializer for '(?P<type_name>[^']+)' threw an exception"
             ),
-            template="ヒント: 初期化に失敗した型は '{type_name}' です。staticコンストラクタ、staticフィールド初期化、設定ファイル読み込み、InnerExceptionを確認してください。",
+            template="初期化に失敗した型は '{type_name}' です。staticコンストラクタ、staticフィールド初期化、設定ファイル読み込み、InnerExceptionを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2192,7 +2200,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Could not load type '(?P<type_name>[^']+)' from assembly '(?P<assembly_name>[^']+)'"
             ),
-            template="ヒント: 読み込めなかった型は '{type_name}'、対象アセンブリは '{assembly_name}' です。型名、名前空間、アセンブリのバージョン、参照DLLが一致しているか確認してください。",
+            template="読み込めなかった型は '{type_name}'、対象アセンブリは '{assembly_name}' です。型名、名前空間、アセンブリのバージョン、参照DLLが一致しているか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2245,7 +2253,7 @@ CSHARP_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Line (?P<line_number>\d+), position (?P<position>\d+)"
             ),
-            template="ヒント: XML内の行番号は '{line_number}'、位置は '{position}' です。該当位置のタグ、文字コード、XML宣言、余計な文字がないか確認してください。",
+            template="XML内の行番号は '{line_number}'、位置は '{position}' です。該当位置のタグ、文字コード、XML宣言、余計な文字がないか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2270,7 +2278,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Cannot read properties of undefined \(reading '(?P<property_name>[^']+)'\)"
             ),
-            template="ヒント: undefinedから読み取ろうとしたプロパティは '{property_name}' です。対象オブジェクトが作成済みか、APIレスポンスや初期値が想定通りか確認してください。",
+            template="undefinedから読み取ろうとしたプロパティは '{property_name}' です。対象オブジェクトが作成済みか、APIレスポンスや初期値が想定通りか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2283,7 +2291,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Cannot read properties of null \(reading '(?P<property_name>[^']+)'\)"
             ),
-            template="ヒント: nullから読み取ろうとしたプロパティは '{property_name}' です。対象オブジェクトやDOM要素が取得できているか、初期化前に参照していないか確認してください。",
+            template="nullから読み取ろうとしたプロパティは '{property_name}' です。対象オブジェクトやDOM要素が取得できているか、初期化前に参照していないか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2296,7 +2304,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Cannot set properties of undefined \(setting '(?P<property_name>[^']+)'\)"
             ),
-            template="ヒント: undefinedに設定しようとしたプロパティは '{property_name}' です。代入先のオブジェクトが初期化済みか、配列やオブジェクトの作成漏れがないか確認してください。",
+            template="undefinedに設定しようとしたプロパティは '{property_name}' です。代入先のオブジェクトが初期化済みか、配列やオブジェクトの作成漏れがないか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2307,7 +2315,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="呼び出し対象の値、関数名、import/exportを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"(?P<function_name>[A-Za-z0-9_.$]+) is not a function"),
-            template="ヒント: 関数として呼び出そうとした名前は '{function_name}' です。メソッド名のスペル、戻り値の型、import/export、対象オブジェクトの中身を確認してください。",
+            template="関数として呼び出そうとした名前は '{function_name}' です。メソッド名のスペル、戻り値の型、import/export、対象オブジェクトの中身を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2320,7 +2328,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"ReferenceError: (?P<variable_name>[A-Za-z_$][A-Za-z0-9_$]*) is not defined"
             ),
-            template="ヒント: 未定義の可能性がある変数は '{variable_name}' です。変数名のスペル、宣言位置、スコープ、import/exportの漏れを確認してください。",
+            template="未定義の可能性がある変数は '{variable_name}' です。変数名のスペル、宣言位置、スコープ、import/exportの漏れを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2339,7 +2347,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="エラー行、括弧、クォートを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"SyntaxError: (?P<message>.+)"),
-            template="ヒント: 構文エラーの詳細は '{message}' です。括弧、カンマ、クォート、予約語、JSONとして正しい形式かを確認してください。",
+            template="構文エラーの詳細は '{message}' です。括弧、カンマ、クォート、予約語、JSONとして正しい形式かを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2350,7 +2358,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="エラー行、括弧、クォートを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"Unexpected token '(?P<token>[^']+)'"),
-            template="ヒント: 想定外として扱われたトークンは '{token}' です。直前の括弧、カンマ、クォート、JSON形式、構文の閉じ忘れを確認してください。",
+            template="想定外として扱われたトークンは '{token}' です。直前の括弧、カンマ、クォート、JSON形式、構文の閉じ忘れを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2369,7 +2377,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="import文、package.json、node_modulesを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"Cannot find module '(?P<module_name>[^']+)'"),
-            template="ヒント: 見つからなかったモジュールは '{module_name}' です。npm install済みか、import/requireのパス、package.json、node_modulesを確認してください。",
+            template="見つからなかったモジュールは '{module_name}' です。npm install済みか、import/requireのパス、package.json、node_modulesを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2398,7 +2406,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Uncaught \(in promise\) (?P<cause_error>[A-Za-z0-9_.$]+)(?:: (?P<message>.+))?"
             ),
-            template="ヒント: Promise内で捕まえられなかったエラーは '{cause_error}' です。await/then/catchの例外処理、非同期処理内の失敗箇所を確認してください。",
+            template="Promise内で捕まえられなかったエラーは '{cause_error}' です。await/then/catchの例外処理、非同期処理内の失敗箇所を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2411,7 +2419,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"UnhandledPromiseRejection(?:Warning)?: (?P<cause_error>[A-Za-z0-9_.$]+)(?:: (?P<message>.+))?"
             ),
-            template="ヒント: Promise内で未処理になったエラーは '{cause_error}' です。async/awaitのtry-catch、Promiseのcatch、非同期処理内の例外発生箇所を確認してください。",
+            template="Promise内で未処理になったエラーは '{cause_error}' です。async/awaitのtry-catch、Promiseのcatch、非同期処理内の例外発生箇所を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2424,7 +2432,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"ENOENT: no such file or directory, (?P<operation>[A-Za-z]+) '(?P<file_path>[^']+)'"
             ),
-            template="ヒント: 見つからなかったファイルは '{file_path}'、実行しようとした操作は '{operation}' です。ファイルの場所、相対パス、実行時のカレントディレクトリを確認してください。",
+            template="見つからなかったファイルは '{file_path}'、実行しようとした操作は '{operation}' です。ファイルの場所、相対パス、実行時のカレントディレクトリを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2435,7 +2443,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="使用ポート、起動中プロセス、dev server設定を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"EADDRINUSE: address already in use .*:(?P<port>\d+)"),
-            template="ヒント: すでに使用中のポートは '{port}' です。同じポートを使っている別プロセス、起動済みサーバー、ポート番号設定を確認してください。",
+            template="すでに使用中のポートは '{port}' です。同じポートを使っている別プロセス、起動済みサーバー、ポート番号設定を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2446,7 +2454,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="接続先host、port番号、サーバ起動状態を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"ECONNREFUSED (?P<host>[0-9a-fA-F:.]+):(?P<port>\d+)"),
-            template="ヒント: 接続を拒否された接続先は '{host}:{port}' です。接続先サーバーが起動しているか、ポート番号、URL、DBやAPIの接続設定を確認してください。",
+            template="接続を拒否された接続先は '{host}:{port}' です。接続先サーバーが起動しているか、ポート番号、URL、DBやAPIの接続設定を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2457,7 +2465,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="接続先URL、timeout設定、ネットワーク状態を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"ETIMEDOUT (?P<host>[0-9a-fA-F:.]+):(?P<port>\d+)"),
-            template="ヒント: タイムアウトした接続先は '{host}:{port}' です。接続先サーバー、ネットワーク、ポート番号、APIやDBの応答時間を確認してください。",
+            template="タイムアウトした接続先は '{host}:{port}' です。接続先サーバー、ネットワーク、ポート番号、APIやDBの応答時間を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2542,7 +2550,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Invalid prop `(?P<prop_name>[^`]+)` of type `(?P<actual_type>[^`]+)` supplied to `(?P<component_name>[^`]+)`, expected `(?P<expected_type>[^`]+)`"
             ),
-            template="ヒント: prop名は '{prop_name}'、渡された型は '{actual_type}'、期待される型は '{expected_type}'、対象コンポーネントは '{component_name}' です。propsの渡し方と型定義を確認してください。",
+            template="prop名は '{prop_name}'、渡された型は '{actual_type}'、期待される型は '{expected_type}'、対象コンポーネントは '{component_name}' です。propsの渡し方と型定義を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2563,7 +2571,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Identifier '(?P<identifier_name>[^']+)' has already been declared"
             ),
-            template="ヒント: 重複して宣言されている識別子は '{identifier_name}' です。同じスコープ内でlet/const/class/functionを二重定義していないか確認してください。",
+            template="重複して宣言されている識別子は '{identifier_name}' です。同じスコープ内でlet/const/class/functionを二重定義していないか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2576,7 +2584,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Invalid DOM property `(?P<invalid_property>[^`]+)`\. Did you mean `(?P<suggested_property>[^`]+)`"
             ),
-            template="ヒント: 無効なDOM属性は '{invalid_property}' です。Reactでは '{suggested_property}' を使う必要があります。JSXの属性名を確認してください。",
+            template="無効なDOM属性は '{invalid_property}' です。Reactでは '{suggested_property}' を使う必要があります。JSXの属性名を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2635,7 +2643,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="JSX内の表示値、props内容、map処理を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"object with keys \{(?P<object_keys>[^}]+)\}"),
-            template="ヒント: React childとして直接描画しようとしたオブジェクトのキーは '{object_keys}' です。オブジェクト全体ではなく、表示したいプロパティを指定して描画してください。",
+            template="React childとして直接描画しようとしたオブジェクトのキーは '{object_keys}' です。オブジェクト全体ではなく、表示したいプロパティを指定して描画してください。",
         ),
     ),
     AnalysisRule(
@@ -2672,7 +2680,7 @@ JAVASCRIPT_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Unexpected token (?P<token>\S+) in JSON at position (?P<position>\d+)"
             ),
-            template="ヒント: JSON内で想定外だったトークンは '{token}'、位置は '{position}' です。JSONの括弧、カンマ、クォート、末尾カンマ、レスポンス内容を確認してください。",
+            template="JSON内で想定外だったトークンは '{token}'、位置は '{position}' です。JSONの括弧、カンマ、クォート、末尾カンマ、レスポンス内容を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2703,7 +2711,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="エラー位置、SQL文、括弧やカンマを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r'syntax error at or near "(?P<near_token>[^"]+)"'),
-            template="ヒント: SQL構文エラーの近くにある語句は '{near_token}' です。直前直後のSQL、カンマ、括弧、予約語、句の順番を確認してください。",
+            template="SQL構文エラーの近くにある語句は '{near_token}' です。直前直後のSQL、カンマ、括弧、予約語、句の順番を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2716,7 +2724,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r'duplicate key value violates unique constraint "(?P<constraint_name>[^"]+)"'
             ),
-            template="ヒント: 重複違反になった一意制約は '{constraint_name}' です。同じ値が既に登録されていないか、INSERT/UPDATE対象の一意キーを確認してください。",
+            template="重複違反になった一意制約は '{constraint_name}' です。同じ値が既に登録されていないか、INSERT/UPDATE対象の一意キーを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2729,7 +2737,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"UNIQUE constraint failed: (?P<target>[A-Za-z0-9_.$]+)"
             ),
-            template="ヒント: 一意制約違反になった対象は '{target}' です。同じ値が既に登録されていないか、INSERT/UPDATE対象のカラムを確認してください。",
+            template="一意制約違反になった対象は '{target}' です。同じ値が既に登録されていないか、INSERT/UPDATE対象のカラムを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2750,7 +2758,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"NOT NULL constraint failed: (?P<target>[A-Za-z0-9_.$]+)"
             ),
-            template="ヒント: NOT NULL制約違反になった対象は '{target}' です。必須カラムに値が入っているか、INSERT/UPDATE時の値、フォーム入力、初期値を確認してください。",
+            template="NOT NULL制約違反になった対象は '{target}' です。必須カラムに値が入っているか、INSERT/UPDATE時の値、フォーム入力、初期値を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2761,7 +2769,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="カラム名、テーブル定義、migration状態を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r'column "(?P<column_name>[^"]+)" does not exist'),
-            template="ヒント: 存在しないカラムとして扱われた名前は '{column_name}' です。カラム名のスペル、テーブル定義、SELECT/WHERE/ORDER BYで参照している名前を確認してください。",
+            template="存在しないカラムとして扱われた名前は '{column_name}' です。カラム名のスペル、テーブル定義、SELECT/WHERE/ORDER BYで参照している名前を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2772,7 +2780,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="テーブル名、schema、migration状態を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r'relation "(?P<relation_name>[^"]+)" does not exist'),
-            template="ヒント: 存在しないrelationとして扱われた名前は '{relation_name}' です。テーブル名、ビュー名、スキーマ名、マイグレーション適用状況を確認してください。",
+            template="存在しないrelationとして扱われた名前は '{relation_name}' です。テーブル名、ビュー名、スキーマ名、マイグレーション適用状況を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2783,7 +2791,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="DBファイル、テーブル一覧、migration状態を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"no such table: (?P<table_name>[A-Za-z0-9_.$]+)"),
-            template="ヒント: 存在しないテーブルとして扱われた名前は '{table_name}' です。テーブル名、マイグレーション、接続先DB、DBファイルの場所を確認してください。",
+            template="存在しないテーブルとして扱われた名前は '{table_name}' です。テーブル名、マイグレーション、接続先DB、DBファイルの場所を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2796,7 +2804,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Unknown column '(?P<column_name>[^']+)' in '(?P<context>[^']+)'"
             ),
-            template="ヒント: 存在しないカラムとして扱われた名前は '{column_name}'、発生箇所は '{context}' です。カラム名、SELECT/WHERE/ORDER BY、テーブル定義、マイグレーションを確認してください。",
+            template="存在しないカラムとして扱われた名前は '{column_name}'、発生箇所は '{context}' です。カラム名、SELECT/WHERE/ORDER BY、テーブル定義、マイグレーションを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2807,7 +2815,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="migration履歴、テーブル一覧を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"table (?P<table_name>[A-Za-z0-9_.$]+) already exists"),
-            template="ヒント: 既に存在しているテーブルは '{table_name}' です。CREATE TABLEの重複実行、マイグレーション履歴、IF NOT EXISTSの必要性を確認してください。",
+            template="既に存在しているテーブルは '{table_name}' です。CREATE TABLEの重複実行、マイグレーション履歴、IF NOT EXISTSの必要性を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2820,7 +2828,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Data too long for column '(?P<column_name>[^']+)' at row (?P<row_number>\d+)"
             ),
-            template="ヒント: 値が長すぎるカラムは '{column_name}'、対象行は '{row_number}' です。入力値の長さ、カラム定義、文字数制限、バリデーションを確認してください。",
+            template="値が長すぎるカラムは '{column_name}'、対象行は '{row_number}' です。入力値の長さ、カラム定義、文字数制限、バリデーションを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2841,7 +2849,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r'invalid input syntax for type (?P<data_type>[A-Za-z0-9_ ]+): "(?P<input_value>[^"]+)"'
             ),
-            template="ヒント: 変換できなかった型は '{data_type}'、入力値は '{input_value}' です。値の形式、型変換、空文字、数値以外の文字が混ざっていないか確認してください。",
+            template="変換できなかった型は '{data_type}'、入力値は '{input_value}' です。値の形式、型変換、空文字、数値以外の文字が混ざっていないか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2902,7 +2910,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"Access denied for user '(?P<user_name>[^']+)'@'(?P<host>[^']+)'"
             ),
-            template="ヒント: 接続を拒否されたDBユーザーは '{user_name}'、接続元は '{host}' です。ユーザー名、パスワード、権限、接続元ホストの許可設定を確認してください。",
+            template="接続を拒否されたDBユーザーは '{user_name}'、接続元は '{host}' です。ユーザー名、パスワード、権限、接続元ホストの許可設定を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2915,7 +2923,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r'password authentication failed for user "(?P<user_name>[^"]+)"'
             ),
-            template="ヒント: パスワード認証に失敗したDBユーザーは '{user_name}' です。ユーザー名、パスワード、接続先DB、環境変数、認証方式を確認してください。",
+            template="パスワード認証に失敗したDBユーザーは '{user_name}' です。ユーザー名、パスワード、接続先DB、環境変数、認証方式を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2926,7 +2934,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="制約名、保存データ、DB定義を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"SQLSTATE\[(?P<sql_state>\d{5})\]"),
-            template="ヒント: SQLSTATEは '{sql_state}' です。制約違反、外部キー制約、一意制約、NOT NULL制約など、DBの整合性ルールに違反していないか確認してください。",
+            template="SQLSTATEは '{sql_state}' です。制約違反、外部キー制約、一意制約、NOT NULL制約など、DBの整合性ルールに違反していないか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2937,7 +2945,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="テーブル名、migration状態、DB定義を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"SQLSTATE\[(?P<sql_state>[A-Z0-9]{5})\]"),
-            template="ヒント: SQLSTATEは '{sql_state}' です。SQLSTATE[42S02] の場合、テーブルまたはビューが存在しない可能性があります。テーブル名、マイグレーション、接続先DBを確認してください。",
+            template="SQLSTATEは '{sql_state}' です。SQLSTATE[42S02] の場合、テーブルまたはビューが存在しない可能性があります。テーブル名、マイグレーション、接続先DBを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2948,7 +2956,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="詳細エラー、SQL文、DB状態を確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r"SQLSTATE\[(?P<sql_state>[A-Z0-9]{5})\]"),
-            template="ヒント: SQLSTATEは '{sql_state}' です。HY000は一般的なDBエラーを表すことが多いため、同じログ内の詳細メッセージ、DBエラー番号、SQL文、接続設定を確認してください。",
+            template="SQLSTATEは '{sql_state}' です。HY000は一般的なDBエラーを表すことが多いため、同じログ内の詳細メッセージ、DBエラー番号、SQL文、接続設定を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2961,7 +2969,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"ambiguous column name: (?P<column_name>[A-Za-z0-9_.$]+)"
             ),
-            template="ヒント: 曖昧だと判定されたカラム名は '{column_name}' です。JOINしているテーブルで同名カラムがないか、テーブル名やエイリアスを付けて参照しているか確認してください。",
+            template="曖昧だと判定されたカラム名は '{column_name}' です。JOINしているテーブルで同名カラムがないか、テーブル名やエイリアスを付けて参照しているか確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2974,7 +2982,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r'cannot insert NULL into \("(?P<schema_name>[^"]+)"\."(?P<table_name>[^"]+)"\."(?P<column_name>[^"]+)"\)'
             ),
-            template="ヒント: NULLを入れようとした対象は '{schema_name}.{table_name}.{column_name}' です。必須カラムに値が入っているか、INSERT文、フォーム入力、デフォルト値を確認してください。",
+            template="NULLを入れようとした対象は '{schema_name}.{table_name}.{column_name}' です。必須カラムに値が入っているか、INSERT文、フォーム入力、デフォルト値を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -2987,7 +2995,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"CHECK constraint failed: (?P<constraint_name>[A-Za-z0-9_.$]+)"
             ),
-            template="ヒント: CHECK制約違反になった対象は '{constraint_name}' です。入力値がDBで定義された条件を満たしているか、範囲、形式、必須条件を確認してください。",
+            template="CHECK制約違反になった対象は '{constraint_name}' です。入力値がDBで定義された条件を満たしているか、範囲、形式、必須条件を確認してください。",
         ),
     ),
     AnalysisRule(
@@ -3030,7 +3038,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
         check_point="カラム名、テーブル定義、aliasを確認してください。",
         hint_rule=HintRule(
             pattern=re.compile(r'"(?P<identifier_name>[^"]+)": invalid identifier'),
-            template="ヒント: 不正な識別子として扱われた名前は '{identifier_name}' です。カラム名、別名、テーブル定義、ダブルクォートによる大文字小文字の扱いを確認してください。",
+            template="不正な識別子として扱われた名前は '{identifier_name}' です。カラム名、別名、テーブル定義、ダブルクォートによる大文字小文字の扱いを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -3059,7 +3067,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"ORA-00001: unique constraint \((?P<constraint_name>[^)]+)\) violated"
             ),
-            template="ヒント: 一意制約違反になった制約は '{constraint_name}' です。同じ値が既に登録されていないか、INSERT/UPDATE対象の一意キーを確認してください。",
+            template="一意制約違反になった制約は '{constraint_name}' です。同じ値が既に登録されていないか、INSERT/UPDATE対象の一意キーを確認してください。",
         ),
     ),
     AnalysisRule(
@@ -3112,7 +3120,7 @@ SQL_ANALYSIS_RULES: list[AnalysisRule] = [
             pattern=re.compile(
                 r"permission denied for (?P<object_type>table|schema|database|sequence) (?P<object_name>[A-Za-z0-9_.$]+)"
             ),
-            template="ヒント: 権限が拒否された対象は '{object_type} {object_name}' です。DBユーザーの権限、GRANT設定、接続先DB、スキーマ権限を確認してください。",
+            template="権限が拒否された対象は '{object_type} {object_name}' です。DBユーザーの権限、GRANT設定、接続先DB、スキーマ権限を確認してください。",
         ),
     ),
     AnalysisRule(
