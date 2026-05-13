@@ -132,3 +132,5 @@ Public repository には、有料版の具体的なテストケースを含め�
 | 2026-05-09 | 全体テスト | `pytest` | 成功 | `test_extractor.py` 4件、`test_presenter.py` 3件、合計7件成功 |
 | 2026-05-09 | CLI手動テスト | `ei` | 成功 | エラー行あり、エラー行なし、大文字・小文字確認の3件を確認 |
 | 2026-05-09 | CLI手動テスト | `errorinsight` | 成功 | エラー行あり、エラー行なし、大文字・小文字確認の3件を確認 |
+| 2026-05-13 | CLI手動テスト | `ei` | 成功 | Pythonの`Traceback` / `AttributeError`、Javaの`NullPointerException`で言語表示、説明、原因候補、確認ポイント、ヒント表示を確認 |
+| 2026-05-13 | 全体テスト | `pytest` | 成功 | `test_extractor.py` 4件、`test_presenter.py` 3件、合計7件成功。表示形式変更後の`hint`、言語表示、ラベル幅揃えにテストを追従 |

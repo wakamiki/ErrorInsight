@@ -52,6 +52,8 @@ ErrorInsight は、日本語話者の初学者・学習中エンジニア・個�
 - 抽出したエラー行ごとに簡易説明を表示する
 - 抽出したエラー行ごとに原因候補を表示する
 - よくある確認ポイントを表示する
+- 判定に使った言語種別を表示する
+- エラー本文から読み取れる追加ヒントを表示する
 - 判断できない場合は「不明」と表示する
 - エラー行が見つからない場合に、そのことを表示する
 
@@ -133,14 +135,12 @@ python -m errorinsight
 ## 想定出力
 
 ```text
-=== ErrorInsight Result ===
-
-[1] Line 12
-Error:
-ValueError: invalid literal for int() with base 10: 'abc'
-説明: 値の変換に失敗した可能性があります。
-原因候補: 数値に変換できない文字列をint()などに渡している可能性があります。
-確認ポイント: 入力値、型変換前の文字列、空文字や想定外の値が入っていないかを確認してください。
+2行目       : AttributeError: 'NoneType' object has no attribute 'split'
+言語        : Python
+説明        : 存在しない機能や値を使おうとした可能性があります。
+原因候補    : メソッド名や属性名の間違い、None参照、型違いの可能性があります。
+確認ポイント: 対象オブジェクトの型、属性名・メソッド名、Noneになっていないかを確認してください。
+ヒント      : 対象の型は 'NoneType'、存在しない属性またはメソッド名は 'split' です。型と属性名・メソッド名を確認してください。
 ```
 
 エラー行が見つからない場合は、そのことをCLI上に表示します。
@@ -185,6 +185,7 @@ ValueError: invalid literal for int() with base 10: 'abc'
 | ライブラリ | 用途 | 方針 |
 | --- | --- | --- |
 | `pyperclip` | クリップボード取得 | 無料版から使用する |
+| `wcwidth` | 日本語を含む表示幅の計算 | 無料版から使用する |
 | `pytest` | 自動テスト | 無料版から使用する |
 | `Typer` | CLI作成 | 必要になった段階で検討する |
 
@@ -206,6 +207,8 @@ ErrorInsight/
 │   ├── cli.py
 │   ├── clipboard.py
 │   ├── extractor.py
+│   ├── analysis_rule.py
+│   ├── analysis_rules.py
 │   ├── analyzer.py
 │   └── presenter.py
 ├── tests/
