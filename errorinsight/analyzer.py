@@ -156,6 +156,3 @@ def analyze_error_line(error_line: ErrorLine, language_hint: str) -> ErrorAnalys
         check_point="エラー行の前後や直前に変更したコードを確認してください。",
         hint=None,
     )
-
-
-# 実際にルールを当てて ErrorAnalysis を返す

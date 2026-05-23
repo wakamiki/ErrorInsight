@@ -1,6 +1,11 @@
 from errorinsight.analyzer import ErrorAnalysis
 from errorinsight.extractor import ErrorLine
-from errorinsight.presenter import format_result
+from errorinsight.presenter import format_result, format_startup_message
+
+
+def test_format_startup_message() -> None:
+    result: str = format_startup_message()
+    assert result == "ErrorInsight\nLocal Mode\nNetwork Access: Disabled"
 
 
 def test_format_result_with_error_line() -> None:

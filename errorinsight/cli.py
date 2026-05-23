@@ -5,10 +5,11 @@ from errorinsight.analyzer import (
 )
 from errorinsight.clipboard import get_clipboard_text
 from errorinsight.extractor import ErrorLine, extract_error_lines
-from errorinsight.presenter import format_result
+from errorinsight.presenter import format_result, format_startup_message
 
 
 def main() -> None:
+    print(format_startup_message())
     clipboard_text: str = get_clipboard_text()
     language_hint: str = detect_language_hint(clipboard_text)
     error_lines: list[ErrorLine] = extract_error_lines(clipboard_text)

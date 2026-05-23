@@ -4,6 +4,8 @@ from errorinsight.analyzer import ErrorAnalysis
 
 LABEL_WIDTH = 12
 
+def format_startup_message() -> str:
+    return "ErrorInsight\nLocal Mode\nNetwork Access: Disabled"
 
 def display_width(text: str) -> int:
     word_width = wcswidth(text)
