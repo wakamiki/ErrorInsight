@@ -4,8 +4,10 @@ from errorinsight.analyzer import ErrorAnalysis
 
 LABEL_WIDTH = 12
 
+
 def format_startup_message() -> str:
-    return "ErrorInsight\nLocal Mode\nNetwork Access: Disabled"
+    return "ErrorInsight\n動作モード: ローカル実行\n外部通信: なし"
+
 
 def display_width(text: str) -> int:
     word_width = wcswidth(text)
@@ -22,7 +24,8 @@ def pad_label(label: str, width: int) -> str:
 
 def format_result(analysis_lines: list[ErrorAnalysis]) -> str:
     if not analysis_lines:
-        return "エラーらしい行は見つかりませんでした。"
+        return format_no_error_lines_message()
+
     result_lines: list[str] = []
     for analysis_line in analysis_lines:
         result_lines.append("")
@@ -31,7 +34,9 @@ def format_result(analysis_lines: list[ErrorAnalysis]) -> str:
             + ": "
             + analysis_line.error_line.text
         )
-        result_lines.append(pad_label("言語", LABEL_WIDTH) + ": " + analysis_line.language_hint)
+        result_lines.append(
+            pad_label("言語", LABEL_WIDTH) + ": " + analysis_line.language_hint
+        )
         result_lines.append(
             pad_label("説明", LABEL_WIDTH) + ": " + analysis_line.description
         )
@@ -43,6 +48,20 @@ def format_result(analysis_lines: list[ErrorAnalysis]) -> str:
         )
         if analysis_line.hint is not None:
             result_lines.append(
-                pad_label("ヒント",LABEL_WIDTH) + ": " + analysis_line.hint
+                pad_label("ヒント", LABEL_WIDTH) + ": " + analysis_line.hint
             )
     return "\n".join(result_lines)
+
+
+def format_clipboard_empty_message() -> str:
+    return "クリップボードにログが見つかりませんでした。エラーログをコピーしてから再実行してください。"
+
+
+def format_clipboard_read_error_message() -> str:
+    return (
+        "クリップボードを読み取れませんでした。ログをコピーしてから再実行してください。"
+    )
+
+
+def format_no_error_lines_message() -> str:
+    return "エラーらしい行は見つかりませんでした。"

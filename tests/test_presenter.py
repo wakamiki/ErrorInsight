@@ -5,7 +5,7 @@ from errorinsight.presenter import format_result, format_startup_message
 
 def test_format_startup_message() -> None:
     result: str = format_startup_message()
-    assert result == "ErrorInsight\nLocal Mode\nNetwork Access: Disabled"
+    assert result == "ErrorInsight\n動作モード: ローカル実行\n外部通信: なし"
 
 
 def test_format_result_with_error_line() -> None:
