@@ -198,6 +198,7 @@ ErrorInsight 無料版は、初心者でも扱いやすい形での配布を目�
 
 ### 配布予定先
 
+- GitHub Releases
 - Vector
 
 ### 配布形式
@@ -205,6 +206,8 @@ ErrorInsight 無料版は、初心者でも扱いやすい形での配布を目�
 - ZIP配布
 - ローカル専用CLIツール
 - 外部ネットワーク通信なし
+- GitHub構成と配布構成は分離する
+- 配布用パッケージを別途作成する
 
 ### 配布パッケージ方針
 
@@ -214,7 +217,7 @@ ErrorInsight 無料版は、初心者でも扱いやすい形での配布を目�
 ### 想定配布構成
 
 ErrorInsight/
-├ run.bat
+├ Start_ErrorInsight.bat
 ├ README_FIRST.txt
 ├ python/
 ├ errorinsight/

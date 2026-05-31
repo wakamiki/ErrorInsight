@@ -87,6 +87,9 @@ ErrorInsight は、日本語話者の初学者・学習中エンジニア・個�
 無料版は、既存の日本語ブログサイトを主な入口として紹介する方針です。
 GitHubを使ったことがない一般の日本語話者にも届きやすいように、ブログ側では使い方、安全性、できること、できないことを日本語で説明します。
 
+配布形式はZIPを基本とし、GitHub Releases と Vector での配布を想定します。
+配布用パッケージはGitHub上の開発用構成とは分離し、`Start_ErrorInsight.bat` から起動できる構成を目指します。
+
 ### 想定する導線
 
 1. 既存ブログサイトで ErrorInsight を紹介する
@@ -284,6 +287,7 @@ pytest
 | `docs/06_test-design.md` | テスト設計 |
 | `docs/07_test-specification.md` | テスト仕様 |
 | `docs/08_test-result.md` | テスト実施記録 |
+| `docs/09_distribution-plan.md` | 配布計画 |
 | `docs/10_release-note.md` | リリースノート |
 | `docs/11_daily-work-log.md` | 日次作業記録 |
 
