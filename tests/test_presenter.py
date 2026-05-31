@@ -1,11 +1,45 @@
 from errorinsight.analyzer import ErrorAnalysis
 from errorinsight.extractor import ErrorLine
-from errorinsight.presenter import format_result, format_startup_message
+from errorinsight.presenter import (
+    format_clipboard_empty_message,
+    format_clipboard_read_error_message,
+    format_no_error_lines_message,
+    format_result,
+    format_startup_message,
+)
 
 
 def test_format_startup_message() -> None:
     result: str = format_startup_message()
     assert result == "ErrorInsight\n動作モード: ローカル実行\n外部通信: なし"
+
+
+def test_format_clipboard_empty_message() -> None:
+    result: str = format_clipboard_empty_message()
+    assert (
+        result
+        == "クリップボードにログが見つかりませんでした。エラーログをコピーしてから再実行してください。"
+    )
+
+
+def test_format_clipboard_read_error_message() -> None:
+    result: str = format_clipboard_read_error_message()
+    assert (
+        result
+        == "クリップボードを読み取れませんでした。ログをコピーしてから再実行してください。"
+    )
+
+
+def test_format_no_error_lines_message() -> None:
+    result: str = format_no_error_lines_message()
+    assert result == "エラーらしい行は見つかりませんでした。"
+
+
+def test_format_result_with_no_error_line() -> None:
+    analysis_lines: list[ErrorAnalysis] = []
+    result: str = format_result(analysis_lines)
+    assert result == "エラーらしい行は見つかりませんでした。"
+    assert not result.endswith("\n")
 
 
 def test_format_result_with_error_line() -> None:
@@ -64,11 +98,4 @@ def test_format_result_with_error_lines() -> None:
         "原因候補    : 変数名や関数名が定義されていない可能性があります。\n"
         "確認ポイント: 名前のスペルや定義位置を確認してください。"
     )
-    assert not result.endswith("\n")
-
-
-def test_format_result_with_no_error_line() -> None:
-    analysis_lines: list[ErrorAnalysis] = []
-    result: str = format_result(analysis_lines)
-    assert result == "エラーらしい行は見つかりませんでした。"
     assert not result.endswith("\n")
