@@ -5,6 +5,7 @@
 ErrorInsight は、クリップボードから取得した複数行ログから怪しいエラー行を抽出し、エラー行から見て取れる範囲で簡易的な原因候補をCLI上に表示する学習用ツールです。
 
 この Public repository では、無料版として公開する範囲を扱います。  
+無料版は `01.00.00` として完成済みです。
 有料版の複雑な詳細分析機能は、Private repository で管理する予定です。
 
 ErrorInsight は、日本語話者の初学者・学習中エンジニア・個人開発者向けに設計しています。
@@ -41,7 +42,7 @@ ErrorInsight は、日本語話者の初学者・学習中エンジニア・個�
 
 ## 無料版スコープ
 
-この Public repository では、`01.00.00` の無料版完成を目標とします。
+この Public repository では、`01.00.00` の無料版完成版を扱います。
 
 ### できること
 
@@ -120,13 +121,19 @@ ErrorInsight では、バージョンを `00.00.00` 形式で表記します。
 
 ## 起動方法
 
-無料版では、インストール済みCLIコマンドとして以下で起動できることを目指します。
+無料版では、インストール済みCLIコマンドとして以下で起動できます。
 
 ```bash
 errorinsight
 ```
 
-開発中の確認用として、将来的に以下の起動も想定します。
+短縮コマンドとして、以下でも起動できます。
+
+```bash
+ei
+```
+
+開発中の確認用として、以下の起動もできます。
 
 ```bash
 python -m errorinsight
@@ -209,11 +216,14 @@ ErrorInsight/
 │   ├── extractor.py
 │   ├── analysis_rule.py
 │   ├── analysis_rules.py
+│   ├── language_detector.py
 │   ├── analyzer.py
 │   └── presenter.py
 ├── tests/
 │   ├── test_extractor.py
+│   ├── test_language_detector.py
 │   ├── test_analyzer.py
+│   ├── test_cli.py
 │   └── test_presenter.py
 ├── docs/
 │   ├── 00_version-history.md
@@ -222,8 +232,11 @@ ErrorInsight/
 │   ├── 03_internal-design.md
 │   ├── 04_implementation-plan.md
 │   ├── 05_test-plan.md
-│   ├── 06_retrospective.md
-│   └── 07_daily-work-log.md
+│   ├── 06_test-design.md
+│   ├── 07_test-specification.md
+│   ├── 08_test-result.md
+│   ├── 10_release-note.md
+│   └── 11_daily-work-log.md
 ├── pyproject.toml
 ├── .gitignore
 ├── AGENTS.md
@@ -232,16 +245,31 @@ ErrorInsight/
 
 ## セットアップ
 
-現時点では、実装前のためセットアップ手順は未確定です。
+開発環境では、以下で編集可能インストールします。
 
-Python パッケージ構成と `pyproject.toml` を追加した段階で、インストール方法、実行方法、テスト実行方法を追記します。
+```bash
+pip install -e ".[dev]"
+```
+
+起動確認:
+
+```bash
+ei
+```
+
+テスト実行:
+
+```bash
+pytest
+```
 
 ## テスト方針
 
 - 早い段階から `pytest` による自動テストを導入する
 - まずは入力と出力が明確な処理からテストする
-- 優先対象は `extractor.py`、`analyzer.py`、`presenter.py`
-- クリップボード取得やCLIコマンド起動は、最初は手動テストで確認する
+- 対象は `extractor.py`、`language_detector.py`、`analyzer.py`、`presenter.py`、`cli.py`
+- クリップボード実操作やCLIコマンド登録状態は手動テストで確認する
+- 現在の自動テストは32件成功済み
 
 ## ドキュメント
 
@@ -253,8 +281,11 @@ Python パッケージ構成と `pyproject.toml` を追加した段階で、イ�
 | `docs/03_internal-design.md` | 内部設計 |
 | `docs/04_implementation-plan.md` | 実装計画 |
 | `docs/05_test-plan.md` | テスト計画 |
-| `docs/06_retrospective.md` | 振り返り |
-| `docs/07_daily-work-log.md` | 日次作業記録 |
+| `docs/06_test-design.md` | テスト設計 |
+| `docs/07_test-specification.md` | テスト仕様 |
+| `docs/08_test-result.md` | テスト実施記録 |
+| `docs/10_release-note.md` | リリースノート |
+| `docs/11_daily-work-log.md` | 日次作業記録 |
 
 ## 開発上の注意
 

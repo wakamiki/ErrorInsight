@@ -1,0 +1,50 @@
+from errorinsight import cli
+
+
+def test_main_shows_empty_clipboard_message(monkeypatch, capsys) -> None:
+    monkeypatch.setattr(cli, "get_clipboard_text", lambda: "")
+
+    cli.main()
+
+    captured = capsys.readouterr()
+    assert "ErrorInsight" in captured.out
+    assert "クリップボードにログが見つかりませんでした。" in captured.out
+
+
+def test_main_shows_clipboard_read_error_message(monkeypatch, capsys) -> None:
+    def raise_clipboard_error() -> str:
+        raise RuntimeError("clipboard error")
+
+    monkeypatch.setattr(cli, "get_clipboard_text", raise_clipboard_error)
+
+    cli.main()
+
+    captured = capsys.readouterr()
+    assert "ErrorInsight" in captured.out
+    assert "クリップボードを読み取れませんでした。" in captured.out
+
+
+def test_main_shows_no_error_lines_message(monkeypatch, capsys) -> None:
+    monkeypatch.setattr(cli, "get_clipboard_text", lambda: "今日は良い天気です。")
+
+    cli.main()
+
+    captured = capsys.readouterr()
+    assert "ErrorInsight" in captured.out
+    assert "エラーらしい行は見つかりませんでした。" in captured.out
+
+
+def test_main_shows_analysis_result(monkeypatch, capsys) -> None:
+    log = (
+        "Traceback (most recent call last):\n"
+        "AttributeError: 'NoneType' object has no attribute 'split'"
+    )
+    monkeypatch.setattr(cli, "get_clipboard_text", lambda: log)
+
+    cli.main()
+
+    captured = capsys.readouterr()
+    assert "2行目" in captured.out
+    assert "言語        : Python" in captured.out
+    assert "説明        : 存在しない機能や値を使おうとした可能性があります。" in captured.out
+    assert "ヒント      : " in captured.out

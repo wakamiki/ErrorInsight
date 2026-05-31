@@ -53,7 +53,8 @@ ErrorInsight無料版の主要機能について、どの観点でテストす�
 
 ### 備考
 
-クリップボード取得は環境依存があるため、基本は手動テストで確認する。
+実際のOSクリップボード取得は環境依存があるため手動テストで確認する。
+CLI入口の空入力、読み取り失敗、通常文、分析結果表示の分岐は自動テストでも確認する。
 
 ---
 
@@ -137,7 +138,7 @@ ErrorInsight無料版の主要機能について、どの観点でテストす�
 
 ### 確認対象
 
-- `analyze_error_lines`
+- `analyze_error_line`
 
 ---
 
@@ -208,5 +209,5 @@ ErrorInsight無料版の主要機能について、どの観点でテストす�
 
 | 種別 | 対象 |
 |---|---|
-| 自動テスト | `extractor.py`, `language_detector.py`, `analyzer.py`, `presenter.py` |
-| 手動テスト | クリップボード取得、CLI起動、コマンド登録状態、実行環境依存の表示 |
+| 自動テスト | `extractor.py`, `language_detector.py`, `analyzer.py`, `presenter.py`, `cli.py` |
+| 手動テスト | 実際のOSクリップボード取得、CLI起動、コマンド登録状態、実行環境依存の表示 |

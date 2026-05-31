@@ -214,12 +214,12 @@ CLI起動時の入口。
 - `pattern`: エラー本文から情報を抜き出すための正規表現
 - `template`: 抜き出した情報を確認ポイントへ追加するための文面
 
-### analyze_error_lines
+### analyze_error_line
 
-抽出済みのエラー行から簡易分析結果を作る。
+抽出済みのエラー行1件から簡易分析結果を作る。
 
-- 入力: `list[ErrorLine]`、言語ヒント
-- 出力: `list[ErrorAnalysis]`
+- 入力: `ErrorLine`、言語ヒント
+- 出力: `ErrorAnalysis`
 
 ### ErrorAnalysis
 
