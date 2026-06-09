@@ -272,7 +272,7 @@ pytest
 - まずは入力と出力が明確な処理からテストする
 - 対象は `extractor.py`、`language_detector.py`、`analyzer.py`、`presenter.py`、`cli.py`
 - クリップボード実操作やCLIコマンド登録状態は手動テストで確認する
-- 現在の自動テストは32件成功済み
+- 現在の自動テストは35件成功済み
 
 ## ドキュメント
 
@@ -290,6 +290,13 @@ pytest
 | `docs/09_distribution-plan.md` | 配布計画 |
 | `docs/10_release-note.md` | リリースノート |
 | `docs/11_daily-work-log.md` | 日次作業記録 |
+
+## ライセンス
+
+ErrorInsight は BSD 3-Clause License で公開します。
+
+再配布や改変版の公開時は、ライセンス表記を残してください。
+また、作者の明示的な許可なく、公式版・公認版・共同開発版であるかのように表示しないでください。
 
 ## 開発上の注意
 

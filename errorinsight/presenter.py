@@ -9,6 +9,14 @@ def format_startup_message() -> str:
     return "ErrorInsight\n動作モード: ローカル実行\n外部通信: なし"
 
 
+def format_loop_prompt() -> str:
+    return "ログをコピーして Enter を押してください。終了する場合は q を入力して Enter を押してください。"
+
+
+def format_exit_message() -> str:
+    return "ErrorInsight を終了します。"
+
+
 def display_width(text: str) -> int:
     word_width = wcswidth(text)
     if word_width == -1:
@@ -54,12 +62,12 @@ def format_result(analysis_lines: list[ErrorAnalysis]) -> str:
 
 
 def format_clipboard_empty_message() -> str:
-    return "クリップボードにログが見つかりませんでした。エラーログをコピーしてから再実行してください。"
+    return "クリップボードにログが見つかりませんでした。エラーログをコピーしてから Enter を押してください。"
 
 
 def format_clipboard_read_error_message() -> str:
     return (
-        "クリップボードを読み取れませんでした。ログをコピーしてから再実行してください。"
+        "クリップボードを読み取れませんでした。ログをコピーしてから Enter を押してください。"
     )
 
 

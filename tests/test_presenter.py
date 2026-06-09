@@ -3,6 +3,8 @@ from errorinsight.extractor import ErrorLine
 from errorinsight.presenter import (
     format_clipboard_empty_message,
     format_clipboard_read_error_message,
+    format_exit_message,
+    format_loop_prompt,
     format_no_error_lines_message,
     format_result,
     format_startup_message,
@@ -18,7 +20,7 @@ def test_format_clipboard_empty_message() -> None:
     result: str = format_clipboard_empty_message()
     assert (
         result
-        == "クリップボードにログが見つかりませんでした。エラーログをコピーしてから再実行してください。"
+        == "クリップボードにログが見つかりませんでした。エラーログをコピーしてから Enter を押してください。"
     )
 
 
@@ -26,8 +28,18 @@ def test_format_clipboard_read_error_message() -> None:
     result: str = format_clipboard_read_error_message()
     assert (
         result
-        == "クリップボードを読み取れませんでした。ログをコピーしてから再実行してください。"
+        == "クリップボードを読み取れませんでした。ログをコピーしてから Enter を押してください。"
     )
+
+
+def test_format_loop_prompt() -> None:
+    result: str = format_loop_prompt()
+    assert result == "ログをコピーして Enter を押してください。終了する場合は q を入力して Enter を押してください。"
+
+
+def test_format_exit_message() -> None:
+    result: str = format_exit_message()
+    assert result == "ErrorInsight を終了します。"
 
 
 def test_format_no_error_lines_message() -> None:

@@ -7,14 +7,15 @@ from errorinsight.extractor import ErrorLine, extract_error_lines
 from errorinsight.presenter import (
     format_clipboard_empty_message,
     format_clipboard_read_error_message,
+    format_exit_message,
+    format_loop_prompt,
     format_result,
     format_startup_message,
 )
 from errorinsight.language_detector import detect_language_hint
 
 
-def main() -> None:
-    print(format_startup_message())
+def run_once() -> None:
     try:
         clipboard_text: str = get_clipboard_text()
     except Exception:
@@ -32,3 +33,13 @@ def main() -> None:
     ]
     result_lines: str = format_result(analysis_lines)
     print(result_lines)
+
+
+def main() -> None:
+    print(format_startup_message())
+    while True:
+        user_input: str = input(format_loop_prompt())
+        if user_input.strip().lower() in ("q", "exit"):
+            print(format_exit_message())
+            return
+        run_once()

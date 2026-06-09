@@ -1,0 +1,8 @@
+以下の文をコピーしてErrorInsightを試してみてください。
+
+Starting sample C# application...
+Reading sample configuration...
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at SampleApp.Program.Main(String[] args) in Program.cs:line 21
+Application stopped.
+

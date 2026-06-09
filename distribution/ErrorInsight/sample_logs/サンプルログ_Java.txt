@@ -1,0 +1,8 @@
+以下の文をコピーしてErrorInsightを試してみてください。
+
+Starting sample Java application...
+Loading user profile...
+Exception in thread "main" java.lang.NullPointerException: Cannot invoke "User.getName()" because "user" is null
+	at sample.Main.main(Main.java:15)
+Application stopped.
+

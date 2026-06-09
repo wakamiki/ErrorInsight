@@ -1,0 +1,10 @@
+以下の文をコピーしてErrorInsightを試してみてください。
+
+Starting sample Python application...
+Loading user input...
+Traceback (most recent call last):
+  File "sample_app.py", line 12, in <module>
+    value = user_name.split(",")
+AttributeError: 'NoneType' object has no attribute 'split'
+Application stopped.
+
