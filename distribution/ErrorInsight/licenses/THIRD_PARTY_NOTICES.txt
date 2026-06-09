@@ -1,0 +1,34 @@
+Third Party Notices
+
+ErrorInsight uses the following third party libraries.
+
+ErrorInsight itself is licensed under the BSD 3-Clause License.
+See ErrorInsight_LICENSE.txt and NOTICE.txt.
+
+Runtime dependencies:
+
+1. pyperclip
+   Purpose: Clipboard text access
+   License: BSD 3-Clause License
+   Notice file: PYPERCLIP_LICENSE.txt
+
+2. wcwidth
+   Purpose: Terminal display width calculation
+   License: MIT License
+   Notice file: WCWIDTH_LICENSE.txt
+
+Development dependency:
+
+1. pytest
+   Purpose: Automated testing during development
+   Note: pytest is used for development and is not normally required in the
+   end-user distribution package.
+
+Python runtime:
+
+This distribution package includes the Python runtime.
+
+1. Python
+   Purpose: Runtime environment
+   License: Python Software Foundation License
+   Notice file: PYTHON_LICENSE.txt

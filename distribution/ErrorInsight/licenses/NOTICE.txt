@@ -1,0 +1,23 @@
+ErrorInsight Notice
+
+ErrorInsight is developed and distributed by miki.
+
+Official distribution:
+
+- GitHub Releases: [GITHUB_RELEASES_URL]
+- Vector: [VECTOR_URL]
+- Official blog: [BLOG_URL]
+
+Contact:
+
+- [CONTACT_URL_OR_EMAIL]
+
+Important notes:
+
+- Modified or redistributed versions must not be presented as official,
+  approved, endorsed, or jointly developed by miki unless explicit written
+  permission has been granted.
+- ErrorInsight Plus is a separate software product from ErrorInsight.
+- ErrorInsight does not send logs to external APIs, does not store log history,
+  and does not perform license authentication.
+
