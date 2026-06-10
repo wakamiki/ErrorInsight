@@ -1,8 +1,5 @@
-以下の文をコピーしてErrorInsightを試してみてください。
-
 Starting sample database process...
 Executing sample insert statement...
 SQLSTATE[23000]: duplicate key value violates unique constraint "users_email_key"
 Detail: Key (email)=(sample@example.com) already exists.
 Database process stopped.
-

@@ -1,5 +1,3 @@
-以下の文をコピーしてErrorInsightを試してみてください。
-
 Starting sample Python application...
 Loading user input...
 Traceback (most recent call last):
@@ -7,4 +5,3 @@ Traceback (most recent call last):
     value = user_name.split(",")
 AttributeError: 'NoneType' object has no attribute 'split'
 Application stopped.
-

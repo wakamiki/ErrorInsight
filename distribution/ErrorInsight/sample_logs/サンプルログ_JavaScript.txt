@@ -1,9 +1,6 @@
-以下の文をコピーしてErrorInsightを試してみてください。
-
 Starting sample JavaScript application...
 Loading sample page data...
 Uncaught TypeError: Cannot read properties of undefined (reading 'name')
     at renderUser (sample.js:8:20)
     at main (sample.js:14:1)
 Application stopped.
-
