@@ -4,13 +4,14 @@ ErrorInsight is developed and distributed by miki.
 
 Official distribution:
 
-- GitHub Releases: [GITHUB_RELEASES_URL]
-- Vector: [VECTOR_URL]
-- Official blog: [BLOG_URL]
+- Official information page: https://github.com/wakamiki/ErrorInsight
+- GitHub Releases: https://github.com/wakamiki/ErrorInsight/releases
+- Vector: The Vector page will be announced on the official information page after publication.
 
 Contact:
 
-- [CONTACT_URL_OR_EMAIL]
+- Website: https://wakamiki.github.io/PortfolioMySite/
+- Email: miki.job2026@gmail.com
 
 Important notes:
 
@@ -20,4 +21,3 @@ Important notes:
 - ErrorInsight Plus is a separate software product from ErrorInsight.
 - ErrorInsight does not send logs to external APIs, does not store log history,
   and does not perform license authentication.
-

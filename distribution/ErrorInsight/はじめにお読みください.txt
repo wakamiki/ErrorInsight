@@ -65,7 +65,7 @@ macOS 向け配布は、現時点では未対応です。
 
 Python が必要かどうか:
 
-- この配布パッケージには、実行に必要なPython環境を同梱する予定です。
+- この配布パッケージには、実行に必要なPython環境を同梱しています。
 - 利用者が別途Pythonをインストールする必要はありません。
 - Pythonをすでにインストールしている場合でも、通常は追加設定なしで利用できます。
 
@@ -74,8 +74,9 @@ Python が必要かどうか:
 
 配布ページ:
 
-- GitHub Releases: [GITHUB_RELEASES_URL]
-- Vector: [VECTOR_URL]
+- 公式情報ページ: https://github.com/wakamiki/ErrorInsight
+- GitHub Releases: https://github.com/wakamiki/ErrorInsight/releases
+- Vector: 公開後、公式情報ページで案内します。
 
 ============================================================
 4. 基本の使い方
@@ -247,7 +248,7 @@ ErrorInsight では、以下のことは行いません。
 9. 削除方法
 ============================================================
 
-ErrorInsight は、インストーラーを使わないZIP配布を想定しています。
+ErrorInsight は、インストーラーを使わないZIP配布です。
 
 削除する場合は、展開した ErrorInsight フォルダごと削除してください。
 
@@ -259,12 +260,14 @@ ErrorInsight は、ログ履歴や設定ファイルを保存しません。
 
 公式配布元:
 
-- GitHub Releases: [GITHUB_RELEASES_URL]
-- Vector: [VECTOR_URL]
+- 公式情報ページ: https://github.com/wakamiki/ErrorInsight
+- GitHub Releases: https://github.com/wakamiki/ErrorInsight/releases
+- Vector: 公開後、公式情報ページで案内します。
 
 開発者連絡先:
 
-- [CONTACT_URL_OR_EMAIL]
+- URL：https://wakamiki.github.io/PortfolioMySite/
+- 問い合わせメールアドレス： miki.job2026@gmail.com
 
 非公式の配布物や、作者名・内容が異なる配布物にはご注意ください。
 
@@ -281,6 +284,7 @@ ErrorInsight は、ログ履歴や設定ファイルを保存しません。
 - THIRD_PARTY_NOTICES.txt
 - PYPERCLIP_LICENSE.txt
 - WCWIDTH_LICENSE.txt
+- PYTHON_LICENSE.txt
 
 ErrorInsight 本体は BSD 3-Clause License で公開しています。
 

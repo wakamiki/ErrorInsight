@@ -89,7 +89,11 @@ GitHub repository は、開発履歴、ソースコード、テスト、設計do
 ErrorInsight/
 ├── Start_ErrorInsight.bat
 ├── はじめにお読みください.txt
-├── errorinsight/
+├── app/
+│   ├── errorinsight/
+│   ├── pyperclip/
+│   └── wcwidth/
+├── python/
 ├── sample_logs/
 │   ├── サンプルログ_Python.txt
 │   ├── サンプルログ_Java.txt
@@ -102,6 +106,42 @@ ErrorInsight/
 │   └── screenshots/
 └── licenses/
 ```
+
+### 主要フォルダの役割
+
+- `Start_ErrorInsight.bat`: 利用者が起動するためのファイル
+- `app/`: ErrorInsight本体と実行に必要なPythonライブラリを置く
+- `app/errorinsight/`: ErrorInsight本体コード
+- `app/pyperclip/`: クリップボード読み取り用ライブラリ
+- `app/wcwidth/`: ターミナル表示幅調整用ライブラリ
+- `python/`: 同梱Python本体
+- `sample_logs/`: 動作確認用の自作サンプルログ
+- `docs/`: 操作説明PDFやスクリーンショットを置く
+- `licenses/`: ErrorInsight本体、Python、第三者ライブラリのライセンス表記を置く
+
+### 同梱Pythonの方針
+
+配布パッケージには Windows向けの Python embeddable package を同梱する。
+
+利用者に別途Pythonのインストールを求めない。
+
+同梱Pythonの `python313._pth` には、配布用 `app` フォルダを読み込めるように以下を追加する。
+
+```text
+..\app
+```
+
+これにより、同梱Pythonから `app/errorinsight`、`app/pyperclip`、`app/wcwidth` を読み込めるようにする。
+
+### 配布前に除外するもの
+
+ZIP化前に、以下の開発・生成物は削除する。
+
+- `__pycache__/`
+- `*.pyc`
+- `.gitkeep`
+
+これらは動作に必須ではなく、利用者向け配布物には含めない。
 
 ### ライセンス構成
 

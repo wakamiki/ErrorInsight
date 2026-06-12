@@ -1,5 +1,19 @@
 # ErrorInsight
 
+## 公式情報
+
+このREADMEは、ErrorInsight の公式情報ページです。
+
+- 公式リポジトリ: https://github.com/wakamiki/ErrorInsight
+- GitHub Releases: https://github.com/wakamiki/ErrorInsight/releases
+- Vector: 公開後、このREADMEで案内します
+- 作者サイト: https://wakamiki.github.io/PortfolioMySite/
+
+配布版は、Windows向けZIPパッケージとして提供する予定です。
+ZIPには実行に必要なPython環境を同梱するため、利用者が別途Pythonをインストールする必要はありません。
+
+起動は、配布パッケージ内の `Start_ErrorInsight.bat` から行います。
+
 ## 概要
 
 ErrorInsight は、クリップボードから取得した複数行ログから怪しいエラー行を抽出し、エラー行から見て取れる範囲で簡易的な原因候補をCLI上に表示する学習用ツールです。
