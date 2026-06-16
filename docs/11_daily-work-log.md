@@ -496,3 +496,57 @@
 - 配布用パッケージに含めるファイルを最終確認する
 - 操作説明書HTMLに配布先URLを入れてPDF化する
 - ZIP化前に、配布フォルダだけで起動できるか再確認する
+
+## 2026-06-12
+
+### 作業時間
+
+- 1時間30分
+
+### 作業内容
+
+- 配布用パッケージで、操作説明PDF以外に不足しているファイルや記述がないか確認した
+- `distribution/ErrorInsight/` の構成を確認し、`Start_ErrorInsight.bat`、`app/`、`python/`、`sample_logs/`、`licenses/` が揃っていることを確認した
+- 同梱Pythonから `errorinsight`、`pyperclip`、`wcwidth` を読み込めることを確認した
+- サンプルログの抽出結果を確認し、Python / Java / C# / JavaScript / SQL / エラーなしの動作確認状況を整理した
+- `docs/09_distribution-plan.md` の想定配布構成を、現在の `app/` と `python/` を使う構成に更新した
+- 配布前に `__pycache__/`、`*.pyc`、`.gitkeep` を除外する方針を追記した
+- Vector公開前は個別URLが確定しないため、公式情報ページを先に用意し、Vector URLは公開後に案内する方針を確認した
+- `README.md` を公式情報ページとして使えるように、公式リポジトリ、GitHub Releases、作者サイト、配布版の案内を追加した
+- `はじめにお読みください.txt` と `NOTICE.txt` の配布元URL、連絡先、Python同梱済みの表記を整理した
+- ErrorInsight側の変更をコミットし、GitHubへpushした
+
+### 気づき
+
+- Vectorの審査に出す前に、配布物内のURLをすべて確定させようとすると詰まりやすい
+- Vectorの個別ページURLは公開後に確定するため、配布物内では変わりにくい公式情報ページへ案内する方が安全
+- GitHub READMEを公式情報ページとして整えると、配布物、Vector、GitHub Releasesの案内を一か所に集約しやすい
+- 配布用パッケージでは、実際のフォルダ構成とdocs上の想定構成がずれていないかを確認することが重要
+
+### 詰まったこと・苦労したこと
+
+- 操作説明PDF、配布ZIP、GitHub pre-release、Vector審査の順番をどうするか整理する必要があった
+- Vector公開前のURL未確定部分を、配布物にどう書くかで迷った
+- `docs/09_distribution-plan.md` の古い想定構成と、実際の配布構成をそろえる必要があった
+
+### 学び
+
+- 審査前に決まらないURLは、配布物に直接書かず、固定の公式情報ページへ集約すると管理しやすい
+- GitHub Releases の一覧URLは固定で使えるため、Vector公開前でも案内しやすい
+- 公式情報ページを先に完成させてから pre-release を作ると、配布物内のURLを安定させやすい
+- 配布資料では「予定です」よりも、現在の実態に合わせた表現に直す必要がある
+
+### 改善点
+
+- 次回はホームページ側に ErrorInsight の公式紹介ページを作成する
+- 公式情報ページのURLを確定してから、操作説明PDF、`はじめにお読みください.txt`、`NOTICE.txt` のURLを最終調整する
+- GitHub pre-release は、配布ZIPと公式情報ページが整ってから作成する
+- ZIP化前に、配布用フォルダから不要な生成物を削除する
+
+### 次にやること
+
+- ポートフォリオサイトに ErrorInsight の公式紹介ページを作成する
+- 公式情報ページのURLを配布資料へ反映する
+- 操作説明HTMLをPDF化し、配布パッケージに入れる
+- 配布フォルダから `__pycache__/`、`*.pyc`、`.gitkeep` を除外してZIP化する
+- GitHub pre-release を作成し、Vector審査に出す準備をする
