@@ -12,6 +12,7 @@ ErrorInsight `01.00.00` を、GitHubに慣れていない日本語ユーザー�
 
 - GitHub Releases
 - Vector
+- note の配布案内ページ
 
 ---
 
@@ -22,6 +23,13 @@ ErrorInsight `01.00.00` を、GitHubに慣れていない日本語ユーザー�
 - GitHub上の開発用ファイル構成をそのまま配布しない
 - Python同梱版のみを配布対象とする
 - 利用者に別途Pythonインストールを求めない
+
+### 現在の進捗
+
+- GitHub Releases で配布を開始した
+- Vector へ配布申請を行った
+- 日本語ユーザー向けの案内ページとして note を用意した
+- Vector 公開ページURLは、公開後に公式情報ページから案内する
 
 ---
 
